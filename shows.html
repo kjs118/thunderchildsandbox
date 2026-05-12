@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thunder Child — Shows</title>
-  <meta name="description" content="Upcoming Thunder Child shows and past performances. Rock covers live in Louisiana.">
+  <meta name="description" content="Upcoming Thunder Child shows and past performances.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Announcement Bar -->
   <div class="announcement-bar" id="announcement-bar" style="display:none;">
-    🎸 Next show: <strong>June 14 @ Legends Pub, Lafayette</strong> &nbsp;·&nbsp;
+    🎸 Next show: <strong>July 18 @ Gloria's, Lafayette</strong> &nbsp;·&nbsp;
     <a href="#">Get directions →</a>
     <button class="dismiss" aria-label="Close">✕</button>
   </div>
 
-  <!-- Navigation -->
   <nav class="site-nav" role="navigation">
     <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
-      <img src="tc-new.svg" alt="Thunder Child logo">
+      <img src="assets/tc-new.svg" alt="Thunder Child logo">
       <span class="nav-logo-text">THUNDER<span>CHILD</span></span>
     </a>
     <ul class="nav-links" role="list">
@@ -41,7 +39,6 @@
     <a href="contact.html">Book Us</a>
   </nav>
 
-  <!-- Page Header -->
   <header class="page-header">
     <div class="page-header-inner">
       <p class="page-header-subtitle">Live Performances</p>
@@ -49,83 +46,57 @@
     </div>
   </header>
 
-  <!-- Shows Content -->
   <main>
     <div class="section">
 
-      <!-- Upcoming -->
       <p class="section-subtitle reveal">On the Horizon</p>
       <h2 class="section-title reveal">Upcoming <span>Shows</span></h2>
       <span class="section-line reveal"></span>
 
       <div class="shows-list">
 
-        <!-- Show 1 -->
         <article class="show-card reveal">
           <div class="show-date-block">
-            <div class="show-day">14</div>
-            <div class="show-month-year">Jun 2025</div>
-          </div>
-          <div>
-            <h3 class="show-venue">Legends Pub</h3>
-            <p class="show-location">Lafayette, Louisiana</p>
-            <p style="font-size:0.85rem;color:var(--dim);margin-top:0.4rem;">Doors 8PM · Show 9PM · 21+</p>
-            <div class="show-tags">
-              <span class="show-tag">Free Admission</span>
-              <span class="show-tag">Full Band</span>
-            </div>
-          </div>
-          <div class="show-flyer">
-            <img src="assets/legends.png" alt="Legends Logo" loading="lazy">
-          </div>
-        </article>
-
-        <!-- Show 2 -->
-        <article class="show-card reveal">
-          <div class="show-date-block">
-            <div class="show-day">28</div>
-            <div class="show-month-year">Jun 2025</div>
-          </div>
-          <div>
-            <h3 class="show-venue">Frozen Sun</h3>
-            <p class="show-location">Maurice, Louisiana</p>
-            <p style="font-size:0.85rem;color:var(--dim);margin-top:0.4rem;">Show 8PM</p>
-            <div class="show-tags">
-              <span class="show-tag">All Ages</span>
-              <span class="show-tag">Outdoor Stage</span>
-            </div>
-          </div>
-          <div class="show-flyer-placeholder">
-            <span>Flyer<br>Coming<br>Soon</span>
-          </div>
-        </article>
-
-        <!-- Show 3 -->
-        <article class="show-card reveal">
-          <div class="show-date-block">
-            <div class="show-day">19</div>
-            <div class="show-month-year">Jul 2025</div>
+            <div class="show-day">18</div>
+            <div class="show-month-year">Jul 2026</div>
           </div>
           <div>
             <h3 class="show-venue">Gloria's</h3>
             <p class="show-location">Lafayette, Louisiana</p>
-            <p style="font-size:0.85rem;color:var(--dim);margin-top:0.4rem;">Doors 7PM · Show 9PM</p>
-            <div class="show-tags">
-              <span class="show-tag">Bar Show</span>
-              <span class="show-tag">21+</span>
-            </div>
+            <div class="show-tags"><span class="show-tag">Full Band</span></div>
           </div>
-          <div class="show-flyer-placeholder">
-            <span>Flyer<br>Coming<br>Soon</span>
-          </div>
+          <img src="https://www.thunderchildband.com/images/glorias.jpg" alt="Gloria's" class="show-flyer">
         </article>
 
-      </div><!-- /shows-list -->
+        <article class="show-card reveal">
+          <div class="show-date-block">
+            <div class="show-day">29</div>
+            <div class="show-month-year">Aug 2026</div>
+          </div>
+          <div>
+            <h3 class="show-venue">Legends Pub</h3>
+            <p class="show-location">Lafayette, Louisiana</p>
+            <div class="show-tags"><span class="show-tag">Full Band</span></div>
+          </div>
+          <img src="https://www.thunderchildband.com/images/legendspub.png" alt="Legends Pub Flyer" class="show-flyer">
+        </article>
 
-      <!-- Past Shows Divider -->
-      <div class="past-shows-divider reveal">
-        <span>Past Shows</span>
+        <article class="show-card reveal">
+          <div class="show-date-block">
+            <div class="show-day">13</div>
+            <div class="show-month-year">Nov 2026</div>
+          </div>
+          <div>
+            <h3 class="show-venue">19th Hole Grill &amp; Bar</h3>
+            <p class="show-location">Houston, Texas</p>
+            <div class="show-tags"><span class="show-tag">Full Band</span></div>
+          </div>
+          <img src="https://www.thunderchildband.com/images/19thhole.png" alt="19th Hole Flyer" class="show-flyer">
+        </article>
+
       </div>
+
+      <div class="past-shows-divider reveal"><span>Past Shows</span></div>
 
       <div class="shows-list">
 
@@ -177,11 +148,10 @@
           <div class="show-flyer-placeholder"><span>Archived</span></div>
         </article>
 
-      </div><!-- /past shows-list -->
+      </div>
 
-      <!-- Book CTA -->
-      <div class="reveal" style="margin-top:5rem; text-align:center; padding:4rem 2rem; background:var(--charcoal); border:1px solid var(--border);">
-        <p class="section-subtitle">Private Events & Bookings</p>
+      <div class="reveal" style="margin-top:5rem;text-align:center;padding:4rem 2rem;background:var(--charcoal);border:1px solid var(--border);">
+        <p class="section-subtitle">Private Events &amp; Bookings</p>
         <h2 class="section-title" style="margin-bottom:1rem;">Want Thunder Child <span>at your event?</span></h2>
         <p style="color:var(--dim);max-width:500px;margin:0 auto 2rem;font-size:1.05rem;">
           We play private parties, corporate events, weddings, and festivals. Get in touch and let's make it happen.
@@ -189,14 +159,13 @@
         <a href="contact.html" class="btn btn-gold">Contact Us to Book</a>
       </div>
 
-    </div><!-- /section -->
+    </div>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
-        <img src="tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
+        <img src="assets/tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
         <p class="footer-tagline">Rock covers played with passion, volume, and zero apologies. Lafayette, Louisiana.</p>
       </div>
       <div>
