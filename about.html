@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thunder Child — About the Band</title>
+  <meta name="description" content="Meet Thunder Child, a rock cover band from Lafayette, Louisiana.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .influences-list {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+    }
+    .influence-tag {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border); color: var(--dim);
+      transition: all var(--transition);
+    }
+    .influence-tag:hover { border-color: var(--gold); color: var(--gold); }
+
+    .about-pull-quote {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 4rem 0;
+    }
+    .about-pull-quote blockquote {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      color: var(--white);
+    }
+    .about-pull-quote blockquote em { color: var(--gold); font-style: normal; }
+    .about-pull-quote cite {
+      display: block; margin-top: 1rem;
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcement-bar" style="display:none;">
+    🎸 Next show: <strong>June 14 @ Legends Pub, Lafayette</strong> &nbsp;·&nbsp;
+    <a href="shows.html">See all shows →</a>
+    <button class="dismiss" aria-label="Close">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation">
+    <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
+      <img src="tc-new.svg" alt="Thunder Child logo">
+      <span class="nav-logo-text">THUNDER<span>CHILD</span></span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shows.html">Shows</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="contact.html" class="cta-link">Book Us</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav-mobile" id="nav-mobile">
+    <a href="shows.html">Shows</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="archive.html">Archive</a>
+    <a href="contact.html">Book Us</a>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="page-header-subtitle">The Band</p>
+      <h1 class="page-header-title">ABOUT</h1>
+    </div>
+  </header>
+
+  <!-- Main About Content -->
+  <main>
+    <div class="section">
+      <div class="about-hero">
+        <div>
+          <p class="section-subtitle reveal">Who We Are</p>
+          <h2 class="section-title reveal">Five musicians.<br><span>One mission.</span></h2>
+          <span class="section-line reveal"></span>
+          <div class="about-bio">
+            <p class="reveal">
+              <strong>Thunder Child</strong> is a Lafayette, Louisiana-based rock cover band delivering high-energy performances across Acadiana and beyond. Named after the iconic Jeff Wayne track, we've been bringing the thunder to bars, festivals, and private events for over a decade.
+            </p>
+            <p class="reveal">
+              We cover the full spectrum of rock — from the classic riffs of <strong>Led Zeppelin, Deep Purple, and Black Sabbath</strong> to the arena anthems of <strong>Def Leppard, AC/DC, and Van Halen</strong>, plus the grunge and alt-rock of <strong>Pearl Jam, Alice in Chains, Soundgarden,</strong> and more.
+            </p>
+            <p class="reveal">
+              Our shows are loud, tight, and built to make you forget everything but the music. We don't do tracks. We don't do backing tapes. We show up, plug in, and play — and we don't stop until the house lights come on.
+            </p>
+          </div>
+
+          <div class="influences-list reveal">
+            <span class="influence-tag">Led Zeppelin</span>
+            <span class="influence-tag">Deep Purple</span>
+            <span class="influence-tag">AC/DC</span>
+            <span class="influence-tag">Black Sabbath</span>
+            <span class="influence-tag">Van Halen</span>
+            <span class="influence-tag">Soundgarden</span>
+            <span class="influence-tag">Pearl Jam</span>
+            <span class="influence-tag">Alice in Chains</span>
+            <span class="influence-tag">Foo Fighters</span>
+            <span class="influence-tag">Def Leppard</span>
+            <span class="influence-tag">Rush</span>
+            <span class="influence-tag">Aerosmith</span>
+            <span class="influence-tag">Guns N' Roses</span>
+            <span class="influence-tag">The Who</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="home-about-img reveal" style="flex:1;">
+            <img src="https://www.thunderchildband.com/images/DSC6484.JPEG"
+              alt="Thunder Child on stage" loading="lazy"
+              style="width:100%;height:320px;object-fit:cover;">
+          </div>
+          <div class="home-about-img reveal" style="flex:1;">
+            <img src="https://www.thunderchildband.com/images/DSC3171.JPG"
+              alt="Thunder Child performing" loading="lazy"
+              style="width:100%;height:260px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pull Quote -->
+      <div class="about-pull-quote reveal">
+        <blockquote>
+          "We play the songs that <em>defined rock and roll</em> — and we play them right."
+        </blockquote>
+        <cite>— Thunder Child</cite>
+      </div>
+
+      <!-- Band Members -->
+      <div class="reveal">
+        <p class="section-subtitle">The Lineup</p>
+        <h2 class="section-title">Meet the <span>Band</span></h2>
+        <span class="section-line"></span>
+      </div>
+
+      <div class="band-members">
+        <div class="member-card reveal">
+          <div class="member-photo">🎸</div>
+          <div class="member-name">Lead Guitar</div>
+          <div class="member-role">Shred &amp; Rhythm</div>
+        </div>
+        <div class="member-card reveal">
+          <div class="member-photo">🎤</div>
+          <div class="member-name">Lead Vocals</div>
+          <div class="member-role">Front of Stage</div>
+        </div>
+        <div class="member-card reveal">
+          <div class="member-photo">🎸</div>
+          <div class="member-name">Bass Guitar</div>
+          <div class="member-role">Low End Theory</div>
+        </div>
+        <div class="member-card reveal">
+          <div class="member-photo">🥁</div>
+          <div class="member-name">Drums</div>
+          <div class="member-role">The Foundation</div>
+        </div>
+        <div class="member-card reveal">
+          <div class="member-photo">🎹</div>
+          <div class="member-name">Keys / Guitar</div>
+          <div class="member-role">Multi-Instrumentalist</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="reveal" style="margin-top:5rem;text-align:center;">
+        <p style="color:var(--dim);font-size:1.05rem;margin-bottom:2rem;">Ready to see us live?</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="shows.html" class="btn btn-gold">Upcoming Shows</a>
+          <a href="contact.html" class="btn btn-outline">Book the Band</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <img src="tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
+        <p class="footer-tagline">Rock covers played with passion, volume, and zero apologies. Lafayette, Louisiana.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigate</h4>
+        <ul class="footer-links">
+          <li><a href="shows.html">Shows</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="contact.html">Contact / Book</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@thunderchildband.com">contact@thunderchildband.com</a></li>
+          <li><a href="https://instagram.com/thunderchildband" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://facebook.com/thunderchildbandLA" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Thunder Child Band · Lafayette, Louisiana · All Rights Reserved</span>
+      <span>Rock Cover Band</span>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
