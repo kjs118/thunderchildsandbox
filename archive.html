@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thunder Child — Archive</title>
+  <meta name="description" content="Watch Thunder Child live performance clips from past shows.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem;
+    }
+    .filter-tab {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border); color: var(--dim);
+      background: none; cursor: pointer; border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .filter-tab:hover, .filter-tab.active {
+      border-color: var(--gold); color: var(--gold);
+      background: rgba(200,146,42,0.05);
+    }
+
+    /* Year badge */
+    .archive-year-heading {
+      font-family: var(--font-display);
+      font-size: 5rem; letter-spacing: 0.1em;
+      color: var(--border);
+      margin-bottom: 2rem; margin-top: 4rem;
+      line-height: 1;
+      position: relative;
+    }
+    .archive-year-heading::after {
+      content: '';
+      display: block; height: 1px;
+      background: var(--border); margin-top: 0.5rem;
+    }
+    .archive-year-heading span {
+      position: relative; z-index: 1;
+    }
+
+    .archive-video-wrap {
+      border: 1px solid var(--border);
+      transition: border-color var(--transition);
+    }
+    .archive-item:hover .archive-video-wrap {
+      border-color: var(--gold-dk);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcement-bar" style="display:none;">
+    🎸 Next show: <strong>June 14 @ Legends Pub, Lafayette</strong> &nbsp;·&nbsp;
+    <a href="shows.html">See all shows →</a>
+    <button class="dismiss" aria-label="Close">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation">
+    <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
+      <img src="tc-new.svg" alt="Thunder Child logo">
+      <span class="nav-logo-text">THUNDER<span>CHILD</span></span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shows.html">Shows</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="contact.html" class="cta-link">Book Us</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav-mobile" id="nav-mobile">
+    <a href="shows.html">Shows</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="archive.html">Archive</a>
+    <a href="contact.html">Book Us</a>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="page-header-subtitle">Live Footage &amp; Photos</p>
+      <h1 class="page-header-title">ARCHIVE</h1>
+    </div>
+  </header>
+
+  <!-- Archive Content -->
+  <main>
+    <div class="section">
+
+      <p class="section-subtitle reveal">Past Performances</p>
+      <h2 class="section-title reveal">The <span>Vault</span></h2>
+      <span class="section-line reveal"></span>
+
+      <!-- 2026 -->
+      <div class="archive-year-heading reveal"><span>2026</span></div>
+
+      <div class="archive-grid">
+
+        <article class="archive-item reveal">
+          <div class="archive-video-wrap">
+            <div style="position:relative;padding-bottom:56.25%;overflow:hidden;background:var(--charcoal);">
+              <iframe
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+                src="https://www.youtube.com/embed/ZOvPCTSVaPM"
+                title="Thunder Child live at Legends Pub — May 2026"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="archive-meta">
+            <div class="archive-meta-date">May 2, 2026</div>
+            <div class="archive-meta-venue">Legends Pub</div>
+            <div class="archive-meta-loc">Lafayette, Louisiana</div>
+          </div>
+        </article>
+
+        <article class="archive-item reveal">
+          <div class="archive-video-wrap">
+            <div style="position:relative;padding-bottom:56.25%;overflow:hidden;background:var(--charcoal);">
+              <iframe
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+                src="https://www.youtube.com/embed/Nn9TwPXHtVw"
+                title="Thunder Child live at Frozen Sun — Feb 2026"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="archive-meta">
+            <div class="archive-meta-date">February 21, 2026</div>
+            <div class="archive-meta-venue">Frozen Sun</div>
+            <div class="archive-meta-loc">Maurice, Louisiana</div>
+          </div>
+        </article>
+
+        <article class="archive-item reveal">
+          <div class="archive-video-wrap">
+            <div style="position:relative;padding-bottom:56.25%;overflow:hidden;background:var(--charcoal);">
+              <iframe
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+                src="https://www.youtube.com/embed/-hg2nxXHioo"
+                title="Thunder Child live at Gloria's — Jan 2026"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="archive-meta">
+            <div class="archive-meta-date">January 17, 2026</div>
+            <div class="archive-meta-venue">Gloria's</div>
+            <div class="archive-meta-loc">Lafayette, Louisiana</div>
+          </div>
+        </article>
+
+      </div><!-- /archive-grid 2026 -->
+
+      <!-- 2025 -->
+      <div class="archive-year-heading reveal" style="margin-top:5rem;"><span>2025</span></div>
+
+      <div class="archive-grid">
+
+        <article class="archive-item reveal">
+          <div class="archive-video-wrap">
+            <div style="position:relative;padding-bottom:56.25%;overflow:hidden;background:var(--charcoal);">
+              <iframe
+                style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+                src="https://www.youtube.com/embed/EGiMKe_sge0"
+                title="Thunder Child live at Legends Pub — Nov 2025"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <div class="archive-meta">
+            <div class="archive-meta-date">November 7, 2025</div>
+            <div class="archive-meta-venue">Legends Pub</div>
+            <div class="archive-meta-loc">Lafayette, Louisiana</div>
+          </div>
+        </article>
+
+        <!-- Placeholder for future additions -->
+        <article class="archive-item reveal" style="opacity:0.4;">
+          <div class="archive-video-wrap" style="background:var(--charcoal);">
+            <div style="position:relative;padding-bottom:56.25%;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;">
+                <span style="font-size:2rem;color:var(--gold-dk);">▶</span>
+                <span style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);">More clips coming</span>
+              </div>
+            </div>
+          </div>
+          <div class="archive-meta">
+            <div class="archive-meta-date">2025</div>
+            <div class="archive-meta-venue">More to Come</div>
+            <div class="archive-meta-loc">Subscribe on YouTube</div>
+          </div>
+        </article>
+
+      </div><!-- /archive-grid 2025 -->
+
+      <!-- YouTube CTA -->
+      <div class="reveal" style="margin-top:4rem;text-align:center;padding:3rem;background:var(--charcoal);border:1px solid var(--border);">
+        <p class="section-subtitle">Subscribe for More</p>
+        <h2 class="section-title" style="margin-bottom:1rem;">More clips on <span>YouTube</span></h2>
+        <p style="color:var(--dim);margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;">
+          We're always adding new footage. Subscribe to catch every live clip as they're posted.
+        </p>
+        <a href="https://youtube.com" class="btn btn-gold" target="_blank" rel="noopener">Subscribe on YouTube →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <img src="tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
+        <p class="footer-tagline">Rock covers played with passion, volume, and zero apologies. Lafayette, Louisiana.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigate</h4>
+        <ul class="footer-links">
+          <li><a href="shows.html">Shows</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="contact.html">Contact / Book</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@thunderchildband.com">contact@thunderchildband.com</a></li>
+          <li><a href="https://instagram.com/thunderchildband" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://facebook.com/thunderchildbandLA" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Thunder Child Band · Lafayette, Louisiana · All Rights Reserved</span>
+      <span>Rock Cover Band</span>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
