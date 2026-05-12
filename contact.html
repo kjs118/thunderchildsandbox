@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thunder Child — Contact &amp; Booking</title>
+  <meta name="description" content="Contact Thunder Child to book them for your event or get in touch.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .success-msg {
+      display: none;
+      background: rgba(200,146,42,0.1);
+      border: 1px solid var(--gold-dk);
+      padding: 1.5rem;
+      border-radius: 2px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcement-bar" style="display:none;">
+    🎸 Next show: <strong>June 14 @ Legends Pub, Lafayette</strong> &nbsp;·&nbsp;
+    <a href="shows.html">See all shows →</a>
+    <button class="dismiss" aria-label="Close">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation">
+    <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
+      <img src="tc-new.svg" alt="Thunder Child logo">
+      <span class="nav-logo-text">THUNDER<span>CHILD</span></span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shows.html">Shows</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="contact.html" class="cta-link">Book Us</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <nav class="nav-mobile" id="nav-mobile">
+    <a href="shows.html">Shows</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="archive.html">Archive</a>
+    <a href="contact.html">Book Us</a>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="page-header-subtitle">Inquiries &amp; Bookings</p>
+      <h1 class="page-header-title">CONTACT</h1>
+    </div>
+  </header>
+
+  <!-- Contact Content -->
+  <main>
+    <div class="section">
+      <div class="contact-layout">
+
+        <!-- Info Side -->
+        <div class="contact-info">
+          <p class="section-subtitle reveal">Get in Touch</p>
+          <h2 class="section-title reveal">Let's Make<br><span>Some Noise</span></h2>
+          <span class="section-line reveal"></span>
+          <p class="reveal">
+            Whether you want to book Thunder Child for your bar, festival, private party, or corporate event — we want to hear from you. Fill out the form and we'll get back to you within 48 hours.
+          </p>
+          <p class="reveal">
+            For faster responses, feel free to reach us directly by email or through our social channels.
+          </p>
+
+          <div class="contact-detail reveal">
+            <div class="contact-detail-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Email</strong>
+              <a href="mailto:contact@thunderchildband.com" style="color:var(--gold);">contact@thunderchildband.com</a>
+            </div>
+          </div>
+
+          <div class="contact-detail reveal">
+            <div class="contact-detail-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Instagram</strong>
+              <a href="https://instagram.com/thunderchildband" target="_blank" rel="noopener" style="color:var(--gold);">@thunderchildband</a>
+            </div>
+          </div>
+
+          <div class="contact-detail reveal">
+            <div class="contact-detail-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <strong>Facebook</strong>
+              <a href="https://facebook.com/thunderchildbandLA" target="_blank" rel="noopener" style="color:var(--gold);">Thunder Child Band LA</a>
+            </div>
+          </div>
+
+          <!-- What we play -->
+          <div class="reveal" style="margin-top:3rem;padding:2rem;background:var(--charcoal);border:1px solid var(--border);border-left:3px solid var(--gold);">
+            <p class="section-subtitle" style="margin-bottom:0.5rem;">What We Play</p>
+            <p style="font-size:0.9rem;color:var(--dim);line-height:1.7;">
+              We play bars, clubs, festivals, private parties, weddings, and corporate events. 
+              Full PA and lights available. Indoor or outdoor. Just bring the crowd.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Form Side -->
+        <div class="reveal">
+          <p class="section-subtitle">Send a Message</p>
+          <h3 class="section-title" style="font-size:2rem;margin-bottom:2rem;">Book or<br><span>Inquire</span></h3>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="name">Your Name</label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone (optional)</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="(337) 555-0000" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="inquiry-type">Inquiry Type</label>
+              <select class="form-select" id="inquiry-type" name="inquiry-type">
+                <option value="">— Select —</option>
+                <option value="bar-venue">Bar / Venue Booking</option>
+                <option value="private-event">Private Event</option>
+                <option value="festival">Festival / Outdoor Event</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="other">Other / General Inquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="event-date">Event Date</label>
+              <input class="form-input" type="date" id="event-date" name="event-date">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Tell us about your event, venue, expected attendance, and any other details..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold" style="width:100%;padding:1.1rem;">
+              Send Message →
+            </button>
+
+            <p style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--dim);text-align:center;margin-top:0.5rem;">
+              We'll respond within 48 hours
+            </p>
+
+            <div class="success-msg" id="success-msg">
+              ✓ Message sent! We'll be in touch within 48 hours.
+            </div>
+          </form>
+        </div>
+
+      </div><!-- /contact-layout -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <img src="tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
+        <p class="footer-tagline">Rock covers played with passion, volume, and zero apologies. Lafayette, Louisiana.</p>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigate</h4>
+        <ul class="footer-links">
+          <li><a href="shows.html">Shows</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="contact.html">Contact / Book</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@thunderchildband.com">contact@thunderchildband.com</a></li>
+          <li><a href="https://instagram.com/thunderchildband" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://facebook.com/thunderchildbandLA" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Thunder Child Band · Lafayette, Louisiana · All Rights Reserved</span>
+      <span>Rock Cover Band</span>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script>
+    // Simple form demo (wire to your backend/Formspree/Netlify Forms)
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const msg = document.getElementById('success-msg');
+      msg.style.display = 'block';
+      this.querySelectorAll('input, textarea, select, button').forEach(el => el.disabled = true);
+    });
+  </script>
+</body>
+</html>
