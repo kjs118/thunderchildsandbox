@@ -259,6 +259,42 @@ body.has-banner.home-page { padding-top: 0; }
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Ken Burns hero slideshow */
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 6, 9, 0.6);
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-logo-wrap,
+.hero-cta-row,
+.hero svg {
+  position: relative;
+  z-index: 10;
+}
+.kb-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  z-index: 1;
+  transform: scale(1);
+  transition: opacity 2s ease-in-out, transform 8s linear;
+}
+.kb-slide.active {
+  opacity: 1;
+  z-index: 2;
+  transform: scale(1.1);
+}
 /* ============================================================
    PARALLAX SECTIONS (home page sections with BG images)
    ============================================================ */
