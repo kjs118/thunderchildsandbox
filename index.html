@@ -7,11 +7,66 @@
   <meta name="description" content="Thunder Child is a high-energy rock cover band based in Lafayette, Louisiana.">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Home: hero starts right at top, banner + nav layered over it */
     body { padding-top: 0; }
     .hero { min-height: 100vh; }
 
-    /* Featured video */
+    /* Full-bleed photo sections replacing parallax */
+    .photo-band {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .photo-band-img {
+      overflow: hidden;
+    }
+    .photo-band-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(15%);
+      transition: transform 0.8s ease, filter 0.8s ease;
+      display: block;
+    }
+    .photo-band-img:hover img {
+      transform: scale(1.03);
+      filter: grayscale(0%);
+    }
+    .photo-band-content {
+      background: var(--deep);
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: 4rem;
+      border-left: 3px solid var(--gold);
+    }
+    .photo-band-content p {
+      font-size: 1.1rem; line-height: 1.85;
+      color: var(--dim); margin-bottom: 1.4rem;
+    }
+    .photo-band-content p strong { color: var(--white); }
+
+    /* Two-photo strip */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 400px;
+      gap: 3px;
+    }
+    .photo-strip-item {
+      overflow: hidden; position: relative;
+    }
+    .photo-strip-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+    .photo-strip-item:hover img {
+      transform: scale(1.04); filter: grayscale(0%);
+    }
+    .photo-strip-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,6,9,0.5), transparent 60%);
+    }
+
+    /* Video section */
     .video-embed-wrap {
       max-width: 860px; margin: 0 auto;
       position: relative; padding-bottom: 56.25%;
@@ -21,21 +76,21 @@
       position: absolute; inset: 0; width: 100%; height: 100%; border: none;
     }
 
-    /* About strip */
-    .home-about-img img {
-      width: 100%; height: 420px; object-fit: cover; filter: grayscale(20%);
+    @media (max-width: 768px) {
+      .photo-band { grid-template-columns: 1fr; }
+      .photo-band-img { height: 300px; }
+      .photo-band-content { padding: 2.5rem 1.5rem; border-left: none; border-top: 3px solid var(--gold); }
+      .photo-strip { height: 220px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Announcement Bar -->
   <div class="announcement-bar" id="announcement-bar">
     <span class="banner-text">🎸 Loading next show…</span>
     <button class="dismiss" aria-label="Close">✕</button>
   </div>
 
-  <!-- Navigation -->
   <nav class="site-nav" role="navigation">
     <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
       <img src="assets/tc-new.svg" alt="Thunder Child logo">
@@ -53,7 +108,6 @@
     </button>
   </nav>
 
-  <!-- Mobile Menu -->
   <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
     <a href="shows.html">Shows</a>
     <a href="about.html">About</a>
@@ -94,60 +148,51 @@
     </div>
   </section>
 
-  <!-- PARALLAX — Live Energy -->
-  <section class="parallax-section">
-    <div class="parallax-bg" data-speed="0.3"
-      style="background-image: url('https://www.thunderchildband.com/images/DSC6445.JPEG');"></div>
-    <div class="parallax-content reveal">
-      <div style="margin-top:2.5rem;">
-        <a href="shows.html" class="btn btn-gold">Find a Show</a>
-      </div>
+  <!-- PHOTO + ABOUT — full bleed split -->
+  <div class="photo-band">
+    <div class="photo-band-img reveal">
+      <img src="https://www.thunderchildband.com/images/DSC6445.JPEG" alt="Thunder Child live" loading="lazy">
     </div>
-  </section>
+    <div class="photo-band-content reveal">
+      <p class="section-subtitle">About the Band</p>
+      <span class="section-line" style="margin-bottom:1.5rem;"></span>
+      <p>
+        <strong>Thunder Child</strong> is a high-energy rock cover band born in the heart of Acadiana.
+        We bring the hits — from Deep Purple and Led Zeppelin to Soundgarden and Foo Fighters —
+        played the way they were meant to be heard: cranked up and in your face.
+      </p>
+      <p>
+        Whether it's a packed bar, an outdoor festival, or a private event, we deliver the full
+        experience every single night. No tracks. No shortcuts.
+      </p>
+      <a href="about.html" class="btn btn-outline" style="align-self:flex-start;">Meet the Band</a>
+    </div>
+  </div>
 
-  <!-- ABOUT STRIP -->
-  <section style="background:var(--black); padding:7rem 2rem;">
-    <div style="max-width:var(--max-w); margin:0 auto;" class="home-about">
-      <div class="home-about-text">
-        <p class="section-subtitle reveal">About the Band</p>
-        <span class="section-line reveal"></span>
-        <p class="reveal" style="font-size:1.1rem;line-height:1.8;color:var(--dim);margin-bottom:1.5rem;">
-          <strong style="color:var(--white);">Thunder Child</strong> is a high-energy rock cover band born in the heart of Acadiana.
-          We bring the hits — from Deep Purple and Led Zeppelin to Soundgarden and Foo Fighters —
-          played the way they were meant to be heard: cranked up and in your face.
-        </p>
-        <p class="reveal" style="font-size:1.1rem;line-height:1.8;color:var(--dim);margin-bottom:2rem;">
-          Whether it's a packed bar, an outdoor festival, or a private event, we deliver the full
-          experience every single night. No tracks. No shortcuts. Just five musicians who love
-          rock and roll as much as you do.
-        </p>
-        <div class="reveal">
-          <a href="about.html" class="btn btn-outline">Meet the Band</a>
-        </div>
-      </div>
-      <div class="home-about-img reveal">
-        <img src="https://www.thunderchildband.com/images/DSC6569.JPEG" alt="Thunder Child performing live" loading="lazy">
-      </div>
+  <!-- PHOTO STRIP — two images side by side -->
+  <div class="photo-strip">
+    <div class="photo-strip-item reveal">
+      <img src="https://www.thunderchildband.com/images/DSC6569.JPEG" alt="Thunder Child on stage" loading="lazy">
     </div>
-  </section>
+    <div class="photo-strip-item reveal">
+      <img src="https://www.thunderchildband.com/images/DSC2806.JPG" alt="Thunder Child performing" loading="lazy">
+    </div>
+  </div>
 
-  <!-- PARALLAX — Crowd -->
-  <section class="parallax-section">
-    <div class="parallax-bg" data-speed="0.3"
-      style="background-image: url('https://www.thunderchildband.com/images/DSC2806.JPG');"></div>
-    <div class="parallax-content reveal">
-      <div style="margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-        <a href="gallery.html" class="btn btn-outline">Photo Gallery</a>
-        <a href="contact.html" class="btn btn-gold">Book Thunder Child</a>
-      </div>
-    </div>
-  </section>
+  <!-- BOOK CTA STRIP -->
+  <div style="background:var(--charcoal); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:3rem 2rem; text-align:center;">
+    <p class="section-subtitle reveal">Private Events &amp; Bookings</p>
+    <p class="reveal" style="color:var(--dim); max-width:480px; margin:0.75rem auto 2rem; font-size:1.05rem;">
+      We play bars, festivals, weddings, and private events. Get in touch.
+    </p>
+    <a href="contact.html" class="btn btn-gold reveal">Book Thunder Child</a>
+  </div>
 
   <!-- FEATURED VIDEO -->
-  <section style="background:var(--deep); padding:6rem 2rem; border-top:1px solid var(--border);">
+  <section style="background:var(--deep); padding:5rem 2rem; border-top:1px solid var(--border);">
     <div style="max-width:var(--max-w); margin:0 auto;">
       <p class="section-subtitle text-center reveal">Live Footage</p>
-      <span class="section-line" style="margin:0 auto 3rem;"></span>
+      <span class="section-line" style="margin:0.75rem auto 2.5rem;"></span>
       <div class="video-embed-wrap reveal">
         <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
           title="Thunder Child live"
@@ -160,7 +205,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
@@ -203,7 +247,6 @@
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
   <script>
-    // Populate next show teaser from shows-data.js
     (function() {
       const shows = window.SHOWS_DATA;
       if (!shows || !shows.length) return;
