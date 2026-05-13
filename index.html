@@ -310,16 +310,20 @@ galleryPhotos.sort(() => Math.random() - 0.5);
 
     const slides = document.querySelectorAll('.kb-slide');
 
-    function showNextSlide() {
-        // Remove active class from all
-        slides.forEach(s => s.classList.remove('active'));
-        
-        // Show the current one
-        slides[currentIndex].classList.add('active');
-
-        // Increment or reset
-        currentIndex = (currentIndex + 1) % slides.length;
-    }
+function showNextSlide() {
+    if (slides.length === 0) return;
+    
+    // 1. Find the current active slide
+    const currentSlide = container.querySelector('.kb-slide.active');
+    
+    // 2. Remove active from all
+    slides.forEach(s => s.classList.remove('active'));
+    
+    // 3. Add active to the new one
+    slides[currentIndex].classList.add('active');
+    
+    currentIndex = (currentIndex + 1) % slides.length;
+}
 
     // Start the loop: Match your 5-second preference for intervals
     showNextSlide();
