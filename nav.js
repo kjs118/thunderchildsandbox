@@ -71,15 +71,31 @@
     revealEls.forEach(el => obs.observe(el));
   }
 
-  // ── Parallax on scroll ────────────────────────────────────────────
-  const parallaxBgs = document.querySelectorAll('.parallax-bg[data-speed]');
-  if (parallaxBgs.length) {
+// ── Improved Parallax ─────────────────────────────────────────────
+  const parallaxSections = document.querySelectorAll('.parallax-section');
+  
+  if (parallaxSections.length) {
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      parallaxBgs.forEach(bg => {
-        const rect = bg.parentElement.getBoundingClientRect();
-        const speed = parseFloat(bg.dataset.speed) || 0.3;
-        bg.style.transform = `translateY(${(y - bg.parentElement.offsetTop + window.innerHeight/2) * speed * 0.4}px)`;
+      const windowHeight = window.innerHeight;
+      
+      parallaxSections.forEach(section => {
+        const bg = section.querySelector('.parallax-bg');
+        if (!bg) return;
+
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionHeight = rect.height;
+
+        // Check if the section is in the viewport
+        if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
+          // Calculate how far through the viewport the section is (0 to 1)
+          const scrollFraction = (sectionTop + sectionHeight) / (windowHeight + sectionHeight);
+          
+          // Adjust the multiplier (0.15) to control speed/intensity
+          const movement = (scrollFraction - 0.5) * 150; 
+          
+          bg.style.transform = `translate3d(0, ${movement}px, 0)`;
+        }
       });
     }, { passive: true });
   }
