@@ -274,27 +274,17 @@ body.has-banner.home-page { padding-top: 0; }
   background-position: center;
   opacity: 0;
   z-index: 1;
-  transition: opacity 2s ease-in-out;
-  /* Use the "Exit" version of the animation here */
-  animation: kenBurnsExit 10s forwards linear;
+  /* STARTING STATE: Normal size */
+  transform: scale(1);
+  /* THE FIX: Transition BOTH opacity and transform together */
+  transition: opacity 2s ease-in-out, transform 8s linear;
 }
 
 .kb-slide.active {
   opacity: 1;
   z-index: 2;
-  /* Use the "Enter" version of the animation here */
-  animation: kenBurnsEnter 10s forwards linear;
-}
-
-/* Both animations do the EXACT same thing, but the name change forces a reset */
-@keyframes kenBurnsEnter {
-  from { transform: scale(1); }
-  to   { transform: scale(1.1); }
-}
-
-@keyframes kenBurnsExit {
-  from { transform: scale(1); }
-  to   { transform: scale(1.1); }
+  /* ENDING STATE: Zoomed in */
+  transform: scale(1.1);
 }
 /* ============================================================ 
    PARALLAX REFINEMENT 
