@@ -260,6 +260,46 @@
       document.getElementById('teaser-venue').textContent = next.venue;
       document.getElementById('teaser-location').textContent = next.location;
     })();
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Define your gallery image URLs here 
+    // (Since JS can't "read" your folder, list your favorites here)
+    const galleryPhotos = [
+        "https://www.thunderchildband.com/images/DSC6445.JPEG",
+        "https://www.thunderchildband.com/images/DSC6569.JPEG",
+        "https://www.thunderchildband.com/images/DSC2806.JPG"
+        // Add any others from your gallery page here
+    ];
+
+    const container = document.getElementById('hero-slideshow');
+    let currentIndex = 0;
+
+    // Create the slide elements
+    galleryPhotos.forEach((src, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'kb-slide';
+        slide.style.backgroundImage = `url(${src})`;
+        container.appendChild(slide);
+    });
+
+    const slides = document.querySelectorAll('.kb-slide');
+
+    function showNextSlide() {
+        // Remove active class from all
+        slides.forEach(s => s.classList.remove('active'));
+        
+        // Show the current one
+        slides[currentIndex].classList.add('active');
+
+        // Increment or reset
+        currentIndex = (currentIndex + 1) % slides.length;
+    }
+
+    // Start the loop: Match your 5-second preference for intervals
+    showNextSlide();
+    setInterval(showNextSlide, 8000); // 8 seconds gives time for the 2s fade + 6s viewing
+});
+    
   </script>
 </body>
 </html>
