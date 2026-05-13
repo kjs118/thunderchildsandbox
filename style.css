@@ -146,19 +146,26 @@ ul { list-style: none; }
 :root { --banner-h: 36px; }
 
 .announcement-bar {
-  display: none; /* shown by nav.js */
+  display: none;
   position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
   height: var(--banner-h);
   background: var(--gold);
   color: var(--black);
-  text-align: center;
-  padding: 0 3rem;
-  line-height: var(--banner-h);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* Desktop: centered static text */
+.banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 3rem;
+  white-space: nowrap;
 }
 .announcement-bar a {
   font-weight: 700;
@@ -173,11 +180,22 @@ ul { list-style: none; }
 }
 .announcement-bar .dismiss:hover { opacity: 1; }
 
-/* When banner is visible, push nav down */
+/* Mobile: ticker scroll */
+@media (max-width: 768px) {
+  .banner-inner {
+    justify-content: flex-start;
+    padding: 0 2.5rem 0 0;
+    animation: ticker 18s linear infinite;
+  }
+  .banner-inner:hover { animation-play-state: paused; }
+}
+@keyframes ticker {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
 body.has-banner .site-nav { top: var(--banner-h); }
-/* Non-home pages need top padding for nav + banner */
 body.has-banner { padding-top: calc(var(--nav-h) + var(--banner-h)); }
-/* Home page: hero fills viewport, override padding */
 body.has-banner.home-page { padding-top: 0; }
 
 /* ============================================================
@@ -241,99 +259,31 @@ body.has-banner.home-page { padding-top: 0; }
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-/* 1. The Bottom Layer: The Photos */
-.hero-slideshow {
-  position: absolute;
-  inset: 0;
-  z-index: 1; /* Lowest */
-  overflow: hidden;
-}
-
-/* 2. The Middle Layer: The Overlay */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(8, 6, 9, 0.6); 
-  z-index: 2; /* Sits on top of photos */
-  pointer-events: none; /* Allows clicks to pass through to buttons */
-}
-
-/* 3. The Top Layer: Everything Else */
-.hero-logo-wrap, 
-.hero-cta-row, 
-.hero svg {
-  position: relative; 
-  z-index: 10; /* Sits on top of the overlay */
-}
-
-/* Ken Burns Slide Styles */
-.kb-slide {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  z-index: 1;
-  /* STARTING STATE: Normal size */
-  transform: scale(1);
-  /* THE FIX: Transition BOTH opacity and transform together */
-  transition: opacity 2s ease-in-out, transform 8s linear;
-}
-
-.kb-slide.active {
-  opacity: 1;
-  z-index: 2;
-  /* ENDING STATE: Zoomed in */
-  transform: scale(1.1);
-}
-/* ============================================================ 
-   PARALLAX REFINEMENT 
+/* ============================================================
+   PARALLAX SECTIONS (home page sections with BG images)
    ============================================================ */
 .parallax-section {
   position: relative;
-  min-height: 70vh; /* Increased slightly for better visual balance */
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  overflow: hidden; /* Clips the moving background */
+  min-height: 60vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
-
 .parallax-bg {
-  position: absolute; 
-  top: -30%; /* Extra height above */
-  left: 0;
-  right: 0;
-  height: 160%; /* Significantly taller than the container for movement */
+  position: absolute; inset: -20%;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  will-change: transform;
-  z-index: 1;
+  background-attachment: fixed;
+  transition: transform 0.1s linear;
 }
-
 .parallax-bg::after {
   content: '';
-  position: absolute; 
-  inset: 0;
-  background: linear-gradient(
-    to bottom, 
-    rgba(8, 6, 9, 0.8) 0%, 
-    rgba(8, 6, 9, 0.4) 50%, 
-    rgba(8, 6, 9, 0.8) 100%
-  );
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,0.72);
 }
-
 .parallax-content {
-  position: relative; 
-  z-index: 2;
-  text-align: center; 
-  padding: 4rem 2rem; /* Reduced padding so the image "peeks" through more */
-  max-width: 800px;
-  pointer-events: none; /* Allows clicks to pass through to links if any */
-}
-
-.parallax-content > * {
-  pointer-events: auto; /* Re-enable clicks for buttons/links */
+  position: relative; z-index: 2;
+  text-align: center; padding: 5rem 2rem;
+  max-width: 700px;
 }
 
 /* ============================================================
