@@ -91,7 +91,7 @@
       grid-template-columns: 100px 1fr;
     }
 
-    /* Mobile: single column */
+    /* Mobile: single column, no flyer images */
     @media (max-width: 768px) {
       .show-card {
         grid-template-columns: 1fr;
@@ -103,7 +103,7 @@
         text-align: left;
       }
       .show-day { font-size: 2.2rem; }
-      .show-flyer-col img { max-height: 80px; }
+      .show-flyer-col { display: none; }
       .show-card.past { grid-template-columns: 1fr; }
     }
   </style>
