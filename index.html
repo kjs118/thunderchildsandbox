@@ -23,7 +23,13 @@
       display: flex;
       align-items: center;
       transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      gap: 4px;
+      gap: 0;
+    }
+    .carousel-slide {
+      border-right: 3px solid var(--gold-dk);
+    }
+    .carousel-slide:last-child {
+      border-right: none;
     }
     .carousel-slide {
       flex-shrink: 0;
@@ -352,6 +358,9 @@
       let pos = 0;
       const total = photos.length;
 
+      // Shuffle photos randomly
+      photos.sort(() => Math.random() - 0.5);
+
       // Build slides — natural image width, fixed height
       photos.forEach(src => {
         const slide = document.createElement('div');
@@ -378,7 +387,7 @@
         const slides = track.querySelectorAll('.carousel-slide');
         let offset = 0;
         for (let i = 0; i < index && i < slides.length; i++) {
-          offset += slides[i].offsetWidth + 4; // 4px gap
+          offset += slides[i].offsetWidth + 3; // 3px border
         }
         return offset;
       }
