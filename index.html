@@ -267,6 +267,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryPhotos = [
         "https://www.thunderchildband.com/images/DSC6445.JPEG",
         "https://www.thunderchildband.com/images/DSC6569.JPEG",
+      "https://www.thunderchildband.com/images/TC_Legends050226_1.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_11.JPEG",
+             "https://www.thunderchildband.com/images/TC_Legends050226_12.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_14.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_15.JPEG",
+             "https://www.thunderchildband.com/images/TC_Legends050226_16.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_19.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_21.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_22.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_6.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_8.JPEG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_9.JPG",
+       "https://www.thunderchildband.com/images/TC_Legends050226_11.JPG",
+       "https://www.thunderchildband.com/images/DSC6484.JPEG",
+       "https://www.thunderchildband.com/images/DSC3582.JPG",
+       "https://www.thunderchildband.com/images/DSC3224.JPG",
+       "https://www.thunderchildband.com/images/DSC3171.JPG",
+       "https://www.thunderchildband.com/images/DSC2806.JPG",
+       "https://www.thunderchildband.com/images/DSC2815.JPG",
+       "https://www.thunderchildband.com/images/abifrozn2.jpeg",
+       "https://www.thunderchildband.com/images/abifrozen221.jpeg",
+       "https://www.thunderchildband.com/images/DSC2821.JPG",
+       "https://www.thunderchildband.com/images/DSC2965.JPG",
+       "https://www.thunderchildband.com/images/DSC2927.JPG",
         "https://www.thunderchildband.com/images/DSC2806.JPG"
         // Add any others from your gallery page here
     ];
@@ -274,6 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('hero-slideshow');
     let currentIndex = 0;
 
+  // Randomize the order of the photos
+galleryPhotos.sort(() => Math.random() - 0.5);
     // Create the slide elements
     galleryPhotos.forEach((src, index) => {
         const slide = document.createElement('div');
