@@ -273,24 +273,24 @@ body.has-banner.home-page { padding-top: 0; }
   background-size: cover;
   background-position: center;
   opacity: 0;
-  /* Keep it on top of the 'empty' container while fading out */
+  /* This ensures the slide on the "bottom" stays visible during the crossfade */
   z-index: 1; 
-  /* 2s fade out */
-  transition: opacity 2.0s ease-in-out; 
-  will-change: transform, opacity;
+  /* Smooth 2-second fade out */
+  transition: opacity 2s ease-in-out;
 }
 
 .kb-slide.active {
   opacity: 1;
-  /* Sits above the outgoing slide */
-  z-index: 2; 
-  /* Smooth 8s zoom that matches your JS interval */
-  animation: kenBurnsSingle 8.1s forwards linear; 
+  /* This puts the new slide on "top" of the old one */
+  z-index: 2;
+  /* 1. We use 10s so the movement doesn't stop before the next photo starts */
+  /* 2. 'forwards' prevents the "snap back" to original size */
+  animation: kenBurnsSingle 10s forwards linear;
 }
 
 @keyframes kenBurnsSingle {
   from { transform: scale(1); }
-  to   { transform: scale(1.08); } 
+  to   { transform: scale(1.1); }
 }
 /* ============================================================ 
    PARALLAX REFINEMENT 
