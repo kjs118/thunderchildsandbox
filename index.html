@@ -93,17 +93,15 @@
     }
     .photo-band-content p strong { color: var(--white); }
 
-    /* Video — archive style, no padding trick */
+    /* Video — Short (9:16 portrait), centered like archive page */
     .home-video-wrap {
-      max-width: 860px; margin: 0 auto;
-    }
-    .home-video-embed {
-      width: 100%;
-      aspect-ratio: 16 / 9;
+      width: 320px;
+      aspect-ratio: 9 / 16;
       border: 1px solid var(--border);
       overflow: hidden;
+      margin: 0 auto;
     }
-    .home-video-embed iframe {
+    .home-video-wrap iframe {
       width: 100%; height: 100%; border: none; display: block;
     }
 
@@ -225,13 +223,11 @@
       <p class="section-subtitle text-center reveal">Live Footage</p>
       <span class="section-line" style="margin:0.75rem auto 2.5rem;"></span>
       <div class="home-video-wrap reveal">
-        <div class="home-video-embed">
-          <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
-            title="Thunder Child live"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen loading="lazy"></iframe>
-        </div>
+        <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
+          title="Thunder Child live"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="text-center mt-3">
         <a href="archive.html" class="btn btn-outline reveal">Full Archive →</a>
