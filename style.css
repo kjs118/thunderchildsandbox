@@ -269,13 +269,10 @@ body.has-banner.home-page { padding-top: 0; }
 /* Ken Burns Slide Styles */
 .kb-slide {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  /* Ensure the fade-out is as smooth as the fade-in */
   opacity: 0;
   transition: opacity 2s ease-in-out;
   z-index: 1;
@@ -283,13 +280,19 @@ body.has-banner.home-page { padding-top: 0; }
 
 .kb-slide.active {
   opacity: 1;
-  z-index: 2; /* Ensures the active slide stays on top of fading ones */
+  z-index: 2;
+  /* 'forwards' keeps the image zoomed at the end of the 10s */
   animation: kenBurnsSingle 10s forwards linear;
 }
 
 @keyframes kenBurnsSingle {
-  from { transform: scale(1); }
-  to { transform: scale(1.15) translate(1%, 1%); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    /* Slightly smaller scale to keep it subtle */
+    transform: scale(1.1) translate(1%, 0.5%);
+  }
 }
 /* ============================================================ 
    PARALLAX REFINEMENT 
