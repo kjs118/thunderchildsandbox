@@ -241,6 +241,65 @@ body.has-banner.home-page { padding-top: 0; }
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* --- Ken Burns Hero Styles --- */
+
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* The dark transparent overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 6, 9, 0.65); /* Adjust 0.65 for more/less transparency */
+  z-index: 1;
+}
+
+.kb-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  /* This creates the crossfade loop */
+  animation: kenBurnsLoop 24s infinite linear;
+}
+
+/* Offset the starting time of each slide */
+.kb-slide:nth-child(1) { animation-delay: 0s; }
+.kb-slide:nth-child(2) { animation-delay: 8s; }
+.kb-slide:nth-child(3) { animation-delay: 16s; }
+
+@keyframes kenBurnsLoop {
+  0% {
+    opacity: 0;
+    transform: scale(1) translate(0, 0);
+  }
+  5% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0;
+    transform: scale(1.15) translate(1%, 1%); /* The "burns" movement */
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Ensure logo and text sit on top */
+.hero-logo-wrap, .hero-cta-row {
+  position: relative;
+  z-index: 3;
+}
+
 /* ============================================================ 
    PARALLAX REFINEMENT 
    ============================================================ */
