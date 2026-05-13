@@ -7,8 +7,6 @@
   function initBanner() {
     const bar = document.getElementById('announcement-bar');
     if (!bar) return;
-    const dismissed = sessionStorage.getItem('tc-banner-dismissed');
-    if (dismissed) { bar.style.display = 'none'; return; }
 
     // Populate from SHOWS_DATA if available
     const shows = window.SHOWS_DATA;
@@ -26,7 +24,6 @@
     bar.querySelector('.dismiss').addEventListener('click', () => {
       bar.style.display = 'none';
       document.body.classList.remove('has-banner');
-      sessionStorage.setItem('tc-banner-dismissed', '1');
     });
   }
 
