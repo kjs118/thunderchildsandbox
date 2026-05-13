@@ -14,33 +14,26 @@
     .photo-carousel {
       position: relative;
       overflow: hidden;
-      height: 420px;
       background: var(--black);
-      margin-top: 4px; /* tiny gap from photo-band above */
+      margin-top: 4px;
       border-top: 3px solid var(--gold);
       border-bottom: 3px solid var(--gold);
     }
     .carousel-track {
       display: flex;
-      height: 100%;
+      align-items: center;
       transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      gap: 4px; /* gap between slides */
+      gap: 4px;
     }
     .carousel-slide {
-      flex: 0 0 calc(33.333% - 3px);
-      height: 100%;
-      overflow: visible; /* allow image to breathe */
-      position: relative;
       flex-shrink: 0;
     }
     .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top; /* keep faces/subjects in frame */
+      height: 380px;
+      width: auto;
+      display: block;
       filter: grayscale(10%);
       transition: filter 0.4s ease;
-      display: block;
     }
     .carousel-slide:hover img { filter: grayscale(0%); }
     .carousel-btn {
@@ -109,11 +102,7 @@
       .photo-band { grid-template-columns: 1fr; }
       .photo-band-img { height: 300px; }
       .photo-band-content { padding: 2.5rem 1.5rem; border-left: none; border-top: 3px solid var(--gold); }
-      .photo-carousel { height: 280px; }
-      .carousel-slide { flex: 0 0 85%; } /* peek at next on mobile */
-    }
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .carousel-slide { flex: 0 0 calc(50% - 2px); }
+      .carousel-slide img { height: 240px; } /* shorter on mobile */
     }
   </style>
 </head>
@@ -360,25 +349,22 @@
       const prevBtn = document.getElementById('carousel-prev');
       const nextBtn = document.getElementById('carousel-next');
 
-      // Determine how many slides visible at once
-      function visibleCount() {
-        return window.innerWidth < 769 ? 1 : window.innerWidth < 1025 ? 2 : 3;
-      }
-
       let pos = 0;
       const total = photos.length;
 
-      // Build slides
+      // Build slides — natural image width, fixed height
       photos.forEach(src => {
         const slide = document.createElement('div');
         slide.className = 'carousel-slide';
         const img = document.createElement('img');
-        img.src = src; img.alt = 'Thunder Child live photo'; img.loading = 'lazy';
+        img.src = src;
+        img.alt = 'Thunder Child live photo';
+        img.loading = 'lazy';
         slide.appendChild(img);
         track.appendChild(slide);
       });
 
-      // Build dots (one per slide)
+      // Build dots
       photos.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
@@ -387,18 +373,24 @@
         dotsContainer.appendChild(dot);
       });
 
-      function updateSlideWidths() {
-        const vc = visibleCount();
-        document.querySelectorAll('.carousel-slide').forEach(s => {
-          s.style.flex = `0 0 ${100 / vc}%`;
-        });
+      function getOffset(index) {
+        // Sum widths of all slides before index (including gaps)
+        const slides = track.querySelectorAll('.carousel-slide');
+        let offset = 0;
+        for (let i = 0; i < index && i < slides.length; i++) {
+          offset += slides[i].offsetWidth + 4; // 4px gap
+        }
+        return offset;
       }
 
       function goTo(index) {
-        const vc = visibleCount();
-        const maxPos = Math.max(0, total - vc);
+        const slides = track.querySelectorAll('.carousel-slide');
+        const maxPos = total - 1;
         pos = Math.min(Math.max(index, 0), maxPos);
-        track.style.transform = `translateX(-${pos * (100 / vc)}%)`;
+        // Wait for images to have natural width
+        requestAnimationFrame(() => {
+          track.style.transform = `translateX(-${getOffset(pos)}px)`;
+        });
         document.querySelectorAll('.carousel-dot').forEach((d, i) => {
           d.classList.toggle('active', i === pos);
         });
@@ -408,14 +400,12 @@
       nextBtn.addEventListener('click', () => goTo(pos + 1));
 
       // Auto-advance
-      let autoTimer = setInterval(() => goTo(pos + 1 > total - visibleCount() ? 0 : pos + 1), 4000);
+      let autoTimer = setInterval(() => goTo(pos + 1 >= total ? 0 : pos + 1), 4000);
       [prevBtn, nextBtn].forEach(b => b.addEventListener('click', () => {
         clearInterval(autoTimer);
-        autoTimer = setInterval(() => goTo(pos + 1 > total - visibleCount() ? 0 : pos + 1), 4000);
+        autoTimer = setInterval(() => goTo(pos + 1 >= total ? 0 : pos + 1), 4000);
       }));
 
-      window.addEventListener('resize', () => { updateSlideWidths(); goTo(pos); });
-      updateSlideWidths();
       goTo(0);
     })();
   </script>
