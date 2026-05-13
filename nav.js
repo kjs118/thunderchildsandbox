@@ -8,15 +8,15 @@
     const bar = document.getElementById('announcement-bar');
     if (!bar) return;
 
-    // Populate from SHOWS_DATA if available
     const shows = window.SHOWS_DATA;
+    let html = '🎸 Loading next show…';
     if (shows && shows.length > 0) {
       const next = shows[0];
-      const textEl = bar.querySelector('.banner-text');
-      if (textEl) {
-        textEl.innerHTML = `🎸 Next show: <strong>${next.day} ${next.monthYear} @ ${next.venue}, ${next.location}</strong> &nbsp;·&nbsp; <a href="shows.html">See all shows →</a>`;
-      }
+      html = `🎸 Next show: <strong>${next.day} ${next.monthYear} @ ${next.venue}, ${next.location}</strong> &nbsp;·&nbsp; <a href="shows.html">See all shows →</a>`;
     }
+
+    // Wrap in banner-inner for ticker animation on mobile
+    bar.innerHTML = `<div class="banner-inner">${html}</div><button class="dismiss" aria-label="Close">✕</button>`;
 
     bar.style.display = 'block';
     document.body.classList.add('has-banner');
@@ -71,31 +71,15 @@
     revealEls.forEach(el => obs.observe(el));
   }
 
-// ── Improved Parallax ─────────────────────────────────────────────
-  const parallaxSections = document.querySelectorAll('.parallax-section');
-  
-  if (parallaxSections.length) {
+  // ── Parallax on scroll ────────────────────────────────────────────
+  const parallaxBgs = document.querySelectorAll('.parallax-bg[data-speed]');
+  if (parallaxBgs.length) {
     window.addEventListener('scroll', () => {
-      const windowHeight = window.innerHeight;
-      
-      parallaxSections.forEach(section => {
-        const bg = section.querySelector('.parallax-bg');
-        if (!bg) return;
-
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top;
-        const sectionHeight = rect.height;
-
-        // Check if the section is in the viewport
-        if (sectionTop < windowHeight && sectionTop + sectionHeight > 0) {
-          // Calculate how far through the viewport the section is (0 to 1)
-          const scrollFraction = (sectionTop + sectionHeight) / (windowHeight + sectionHeight);
-          
-          // Adjust the multiplier (0.15) to control speed/intensity
-          const movement = (scrollFraction - 0.5) * 150; 
-          
-          bg.style.transform = `translate3d(0, ${movement}px, 0)`;
-        }
+      const y = window.scrollY;
+      parallaxBgs.forEach(bg => {
+        const rect = bg.parentElement.getBoundingClientRect();
+        const speed = parseFloat(bg.dataset.speed) || 0.3;
+        bg.style.transform = `translateY(${(y - bg.parentElement.offsetTop + window.innerHeight/2) * speed * 0.4}px)`;
       });
     }, { passive: true });
   }
