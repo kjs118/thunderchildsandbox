@@ -1,95 +1,222 @@
-/* nav.js — shared behaviors: nav, announcement bar, footer, scroll effects */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thunder Child — Rock Cover Band · Lafayette, LA</title>
+  <meta name="description" content="Thunder Child is a high-energy rock cover band based in Lafayette, Louisiana.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Home: hero starts right at top, banner + nav layered over it */
+    body { padding-top: 0; }
+    .hero { min-height: 100vh; }
 
-(function () {
-  const currentPage = location.pathname.split('/').pop() || 'index.html';
-
-  // ── Inject announcement bar from shows data ───────────────────────
-  function initBanner() {
-    const bar = document.getElementById('announcement-bar');
-    if (!bar) return;
-    const dismissed = sessionStorage.getItem('tc-banner-dismissed');
-    if (dismissed) { bar.style.display = 'none'; return; }
-
-    // Populate from SHOWS_DATA if available
-    const shows = window.SHOWS_DATA;
-    if (shows && shows.length > 0) {
-      const next = shows[0];
-      const textEl = bar.querySelector('.banner-text');
-      if (textEl) {
-        textEl.innerHTML = `🎸 Next show: <strong>${next.day} ${next.monthYear} @ ${next.venue}, ${next.location}</strong> &nbsp;·&nbsp; <a href="shows.html">See all shows →</a>`;
-      }
+    /* Featured video */
+    .video-embed-wrap {
+      max-width: 860px; margin: 0 auto;
+      position: relative; padding-bottom: 56.25%;
+      border: 1px solid var(--border);
+    }
+    .video-embed-wrap iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
     }
 
-    bar.style.display = 'block';
-    document.body.classList.add('has-banner');
+    /* About strip */
+    .home-about-img img {
+      width: 100%; height: 420px; object-fit: cover; filter: grayscale(20%);
+    }
+  </style>
+</head>
+<body>
 
-    bar.querySelector('.dismiss').addEventListener('click', () => {
-      bar.style.display = 'none';
-      document.body.classList.remove('has-banner');
-      sessionStorage.setItem('tc-banner-dismissed', '1');
-    });
-  }
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="announcement-bar">
+    <span class="banner-text">🎸 Loading next show…</span>
+    <button class="dismiss" aria-label="Close">✕</button>
+  </div>
 
-  // ── Nav scroll state ──────────────────────────────────────────────
-  const nav = document.querySelector('.site-nav');
-  window.addEventListener('scroll', () => {
-    nav && nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  <!-- Navigation -->
+  <nav class="site-nav" role="navigation">
+    <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
+      <img src="assets/tc-new.svg" alt="Thunder Child logo">
+      <span class="nav-logo-text">THUNDER<span>CHILD</span></span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shows.html">Shows</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="archive.html">Archive</a></li>
+      <li><a href="contact.html" class="cta-link">Book Us</a></li>
+    </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-  // ── Mobile menu toggle ────────────────────────────────────────────
-  const toggle = document.getElementById('nav-toggle');
-  const mobileMenu = document.getElementById('nav-mobile');
-  if (toggle && mobileMenu) {
-    toggle.addEventListener('click', () => {
-      const open = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', open);
-      toggle.setAttribute('aria-expanded', open);
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        toggle.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
+  <!-- Mobile Menu -->
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+    <a href="shows.html">Shows</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="archive.html">Archive</a>
+    <a href="contact.html">Book Us</a>
+  </nav>
 
-  // ── Active nav link ───────────────────────────────────────────────
-  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(a => {
-    if (a.getAttribute('href') === currentPage) a.classList.add('active');
-  });
+  <!-- HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg"></div>
+    <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.03" preserveAspectRatio="none" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="0" x2="1200" y2="800" stroke="#c4738a" stroke-width="1"/>
+      <line x1="1200" y1="0" x2="0" y2="800" stroke="#c4738a" stroke-width="0.5"/>
+    </svg>
+    <div class="hero-logo-wrap" role="heading" aria-level="1">
+      <img src="assets/tc-new.svg" alt="Thunder Child" class="hero-logo">
+      <h1 class="hero-title">THUNDER<br><em>CHILD</em></h1>
+      <p class="hero-sub">Lafayette, Louisiana &nbsp;·&nbsp; Rock Cover Band</p>
+    </div>
+    <div class="hero-cta-row">
+      <a href="shows.html" class="btn btn-gold">Upcoming Shows</a>
+      <a href="about.html" class="btn btn-outline">Meet the Band</a>
+    </div>
+  </section>
 
-  // ── Scroll reveal ─────────────────────────────────────────────────
-  const revealEls = document.querySelectorAll('.reveal');
-  if (revealEls.length && 'IntersectionObserver' in window) {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    revealEls.forEach(el => obs.observe(el));
-  }
+  <!-- NEXT SHOW TEASER -->
+  <section style="background:var(--deep); padding:4rem 2rem;">
+    <div style="max-width:var(--max-w); margin:0 auto;">
+      <p class="section-subtitle reveal">Next Show</p>
+      <div class="next-show-teaser reveal" id="next-show-teaser">
+        <div class="next-show-date" id="teaser-date">—</div>
+        <div class="next-show-info">
+          <h3 id="teaser-venue">Loading…</h3>
+          <p id="teaser-location" style="color:var(--dim);font-style:italic;margin-top:0.2rem;"></p>
+        </div>
+        <a href="shows.html" class="btn btn-gold" style="flex-shrink:0;">All Shows →</a>
+      </div>
+    </div>
+  </section>
 
-  // ── Parallax on scroll ────────────────────────────────────────────
-  const parallaxBgs = document.querySelectorAll('.parallax-bg[data-speed]');
-  if (parallaxBgs.length) {
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      parallaxBgs.forEach(bg => {
-        const rect = bg.parentElement.getBoundingClientRect();
-        const speed = parseFloat(bg.dataset.speed) || 0.3;
-        bg.style.transform = `translateY(${(y - bg.parentElement.offsetTop + window.innerHeight/2) * speed * 0.4}px)`;
-      });
-    }, { passive: true });
-  }
+  <!-- PARALLAX — Live Energy -->
+  <section class="parallax-section">
+    <div class="parallax-bg" data-speed="0.3"
+      style="background-image: url('https://www.thunderchildband.com/images/DSC6445.JPEG');"></div>
+    <div class="parallax-content reveal">
+      <p class="parallax-quote"><em>Live music</em> the way it was meant to be.</p>
+      <div style="margin-top:2.5rem;">
+        <a href="shows.html" class="btn btn-gold">Find a Show</a>
+      </div>
+    </div>
+  </section>
 
-  // Run banner after SHOWS_DATA is available
-  if (window.SHOWS_DATA) {
-    initBanner();
-  } else {
-    window.addEventListener('load', initBanner);
-  }
-})();
+  <!-- ABOUT STRIP -->
+  <section style="background:var(--black); padding:7rem 2rem;">
+    <div style="max-width:var(--max-w); margin:0 auto;" class="home-about">
+      <div class="home-about-text">
+        <p class="section-subtitle reveal">About the Band</p>
+        <h2 class="section-title reveal">Rock. Loud.<br><span>Unfiltered.</span></h2>
+        <span class="section-line reveal"></span>
+        <p class="reveal" style="font-size:1.1rem;line-height:1.8;color:var(--dim);margin-bottom:1.5rem;">
+          <strong style="color:var(--white);">Thunder Child</strong> is a high-energy rock cover band born in the heart of Acadiana.
+          We bring the hits — from Deep Purple and Led Zeppelin to Soundgarden and Foo Fighters —
+          played the way they were meant to be heard: cranked up and in your face.
+        </p>
+        <p class="reveal" style="font-size:1.1rem;line-height:1.8;color:var(--dim);margin-bottom:2rem;">
+          Whether it's a packed bar, an outdoor festival, or a private event, we deliver the full
+          experience every single night. No tracks. No shortcuts. Just five musicians who love
+          rock and roll as much as you do.
+        </p>
+        <div class="reveal">
+          <a href="about.html" class="btn btn-outline">Meet the Band</a>
+        </div>
+      </div>
+      <div class="home-about-img reveal">
+        <img src="https://www.thunderchildband.com/images/DSC6569.JPEG" alt="Thunder Child performing live" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX — Crowd -->
+  <section class="parallax-section">
+    <div class="parallax-bg" data-speed="0.3"
+      style="background-image: url('https://www.thunderchildband.com/images/DSC2806.JPG');"></div>
+    <div class="parallax-content reveal">
+      <p class="parallax-quote">Every night is <em>the night.</em></p>
+      <div style="margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="gallery.html" class="btn btn-outline">Photo Gallery</a>
+        <a href="contact.html" class="btn btn-gold">Book Thunder Child</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED VIDEO -->
+  <section style="background:var(--deep); padding:6rem 2rem; border-top:1px solid var(--border);">
+    <div style="max-width:var(--max-w); margin:0 auto;">
+      <p class="section-subtitle text-center reveal">Live Footage</p>
+      <h2 class="section-title text-center reveal">Catch the <span>Energy</span></h2>
+      <span class="section-line" style="margin:0 auto 3rem;"></span>
+      <div class="video-embed-wrap reveal">
+        <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
+          title="Thunder Child live"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="text-center mt-3">
+        <a href="archive.html" class="btn btn-outline reveal">Full Archive →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <img src="assets/tc-new.svg" alt="Thunder Child" class="footer-brand-logo">
+        <p class="footer-tagline">Rock covers played with passion, volume, and zero apologies. Lafayette, Louisiana.</p>
+        <div class="social-row mt-2">
+          <a href="https://instagram.com/thunderchildband" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com/thunderchildbandLA" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Navigate</h4>
+        <ul class="footer-links">
+          <li><a href="shows.html">Shows</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="contact.html">Contact / Book</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-title">Contact</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@thunderchildband.com">contact@thunderchildband.com</a></li>
+          <li><a href="https://instagram.com/thunderchildband" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://facebook.com/thunderchildbandLA" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Thunder Child Band · Lafayette, Louisiana · All Rights Reserved</span>
+      <span>Rock Cover Band</span>
+    </div>
+  </footer>
+
+  <script src="shows-data.js"></script>
+  <script src="nav.js"></script>
+  <script>
+    // Populate next show teaser from shows-data.js
+    (function() {
+      const shows = window.SHOWS_DATA;
+      if (!shows || !shows.length) return;
+      const next = shows[0];
+      document.getElementById('teaser-date').textContent = next.day + ' ' + next.monthYear;
+      document.getElementById('teaser-venue').textContent = next.venue;
+      document.getElementById('teaser-location').textContent = next.location;
+    })();
+  </script>
+</body>
+</html>
