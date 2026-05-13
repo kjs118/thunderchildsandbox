@@ -7,76 +7,89 @@
   <meta name="description" content="Watch Thunder Child live performance clips from past shows.">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── Archive layout: video left, details right ── */
     .archive-container {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 0 2rem 4rem;
+      padding: 0 2rem 5rem;
     }
 
     .archive-show {
       display: flex;
-      gap: 2rem;
-      margin-bottom: 3rem;
-      padding-bottom: 3rem;
+      gap: 2.5rem;
+      margin-bottom: 0;
+      padding: 2.5rem 0;
       border-bottom: 1px solid var(--border);
       align-items: center;
-      flex-wrap: wrap;
+      transition: background 0.3s;
     }
-    .archive-show:last-child {
-      border-bottom: none;
-    }
+    .archive-show:first-of-type { border-top: 1px solid var(--border); }
+    .archive-show:hover { background: rgba(196,115,138,0.03); }
 
-    /* 16:9 horizontal video */
+    /* 16:9 horizontal */
     .archive-video {
-      width: 320px;
+      width: 420px;
       aspect-ratio: 16 / 9;
-      border: 1px solid var(--border);
-      overflow: hidden;
       flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 2px;
     }
 
     /* 9:16 vertical Shorts */
     .short-video {
-      width: 180px;
+      width: 220px;
       aspect-ratio: 9 / 16;
     }
 
-    .archive-video iframe,
-    .short-video iframe {
+    .archive-video iframe {
       width: 100%;
       height: 100%;
       border: none;
       display: block;
     }
 
+    .archive-details {
+      flex: 1;
+    }
     .archive-details h2 {
       font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 2.4rem;
       letter-spacing: 0.08em;
-      color: var(--gold);
-      margin-bottom: 0.4rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+      line-height: 1;
     }
-    .archive-details p {
+    .archive-details .venue {
       font-size: 1rem;
-      color: var(--dim);
+      color: var(--gold);
       font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .archive-details .watch-link {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .archive-show:hover .archive-details .watch-link {
+      color: var(--gold);
+      border-color: var(--gold);
     }
 
-    /* Mobile: stack vertically */
     @media (max-width: 768px) {
-      .archive-show { flex-direction: column; align-items: flex-start; }
+      .archive-show { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
       .archive-video { width: 100%; }
-      .short-video { width: 100%; max-width: 340px; }
+      .short-video { width: 100%; max-width: 320px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="announcement-bar" id="announcement-bar">
-    <span class="banner-text">🎸 Loading next show…</span>
-    <button class="dismiss" aria-label="Close">✕</button>
-  </div>
+  <div class="announcement-bar" id="announcement-bar"></div>
 
   <nav class="site-nav" role="navigation">
     <a href="index.html" class="nav-logo" aria-label="Thunder Child Home">
@@ -116,67 +129,59 @@
       <h2 class="section-title">The <span>Vault</span></h2>
       <span class="section-line"></span>
 
-      <!-- May 2, 2026 — all videos on original use short-video class -->
       <div class="archive-show">
         <div class="archive-video short-video">
-          <iframe
-            src="https://www.youtube.com/embed/ZOvPCTSVaPM"
-            title="Legends Pub 5/2/26"
-            frameborder="0"
+          <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
+            title="Legends Pub 5/2/26" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
         <div class="archive-details">
           <h2>May 2, 2026</h2>
-          <p>Legends Pub — Lafayette, LA</p>
+          <p class="venue">Legends Pub — Lafayette, LA</p>
+          <a href="https://www.youtube.com/watch?v=ZOvPCTSVaPM" target="_blank" rel="noopener" class="watch-link">Watch on YouTube →</a>
         </div>
       </div>
 
-      <!-- February 21, 2026 -->
       <div class="archive-show">
         <div class="archive-video short-video">
-          <iframe
-            src="https://www.youtube.com/embed/Nn9TwPXHtVw"
-            title="Frozen Sun 2/21/26"
-            frameborder="0"
+          <iframe src="https://www.youtube.com/embed/Nn9TwPXHtVw"
+            title="Frozen Sun 2/21/26" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
         <div class="archive-details">
           <h2>February 21, 2026</h2>
-          <p>Frozen Sun — Maurice, LA</p>
+          <p class="venue">Frozen Sun — Maurice, LA</p>
+          <a href="https://www.youtube.com/watch?v=Nn9TwPXHtVw" target="_blank" rel="noopener" class="watch-link">Watch on YouTube →</a>
         </div>
       </div>
 
-      <!-- January 17, 2026 — original uses regular archive-video (16:9) -->
       <div class="archive-show">
         <div class="archive-video">
-          <iframe
-            src="https://www.youtube.com/embed/-hg2nxXHioo"
-            title="Gloria's 1/17/26"
-            frameborder="0"
+          <iframe src="https://www.youtube.com/embed/-hg2nxXHioo"
+            title="Gloria's 1/17/26" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
         </div>
         <div class="archive-details">
           <h2>January 17, 2026</h2>
-          <p>Gloria's — Lafayette, LA</p>
+          <p class="venue">Gloria's — Lafayette, LA</p>
+          <a href="https://www.youtube.com/watch?v=-hg2nxXHioo" target="_blank" rel="noopener" class="watch-link">Watch on YouTube →</a>
         </div>
       </div>
 
-      <!-- November 7, 2025 -->
       <div class="archive-show">
         <div class="archive-video short-video">
-          <iframe
-            src="https://www.youtube.com/embed/EGiMKe_sge0"
-            title="Legends Pub 11/7/25"
-            frameborder="0"
+          <iframe src="https://www.youtube.com/embed/EGiMKe_sge0"
+            title="Legends Pub 11/7/25" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         </div>
         <div class="archive-details">
           <h2>November 7, 2025</h2>
-          <p>Legends Pub — Lafayette, LA</p>
+          <p class="venue">Legends Pub — Lafayette, LA</p>
+          <a href="https://www.youtube.com/watch?v=EGiMKe_sge0" target="_blank" rel="noopener" class="watch-link">Watch on YouTube →</a>
         </div>
       </div>
 
