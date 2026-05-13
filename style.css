@@ -247,6 +247,14 @@ body.has-banner.home-page { padding-top: 0; }
   z-index: 0;
 }
 
+/* The dark transparent overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 6, 9, 0.65); /* Adjust 0.65 for more/less transparency */
+  z-index: 1;
+}
+
 .kb-slide {
   position: absolute;
   inset: 0;
