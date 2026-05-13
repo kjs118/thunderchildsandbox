@@ -272,30 +272,25 @@ body.has-banner.home-page { padding-top: 0; }
   inset: 0;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   opacity: 0;
-  /* Keep the fade smooth */
-  transition: opacity 2s ease-in-out;
-  /* This prevents the "super zoom" by ensuring it starts at normal size */
-  transform: scale(1); 
-  z-index: 1;
+  /* Keep it on top of the 'empty' container while fading out */
+  z-index: 1; 
+  /* 2s fade out */
+  transition: opacity 2.0s ease-in-out; 
+  will-change: transform, opacity;
 }
 
 .kb-slide.active {
   opacity: 1;
-  z-index: 2;
-  /* Use a very small zoom (1.05 = 5%) so it doesn't look cropped */
-  animation: kenBurnsSingle 8s forwards ease-out; 
+  /* Sits above the outgoing slide */
+  z-index: 2; 
+  /* Smooth 8s zoom that matches your JS interval */
+  animation: kenBurnsSingle 8.1s forwards linear; 
 }
 
 @keyframes kenBurnsSingle {
-  from {
-    transform: scale(1);
-  }
-  to {
-    /* 1.05 is much safer than 1.1 or 1.15 */
-    transform: scale(1.05); 
-  }
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); } 
 }
 /* ============================================================ 
    PARALLAX REFINEMENT 
