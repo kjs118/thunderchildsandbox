@@ -241,40 +241,50 @@ body.has-banner.home-page { padding-top: 0; }
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* 1. The Bottom Layer: The Photos */
 .hero-slideshow {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1; /* Lowest */
+  overflow: hidden;
 }
 
-/* The dark transparent overlay */
+/* 2. The Middle Layer: The Overlay */
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(8, 6, 9, 0.65); /* Adjust 0.65 for more/less transparency */
-  z-index: 1;
+  background: rgba(8, 6, 9, 0.6); 
+  z-index: 2; /* Sits on top of photos */
+  pointer-events: none; /* Allows clicks to pass through to buttons */
 }
 
+/* 3. The Top Layer: Everything Else */
+.hero-logo-wrap, 
+.hero-cta-row, 
+.hero svg {
+  position: relative; 
+  z-index: 10; /* Sits on top of the overlay */
+}
+
+/* Ken Burns Slide Styles */
 .kb-slide {
   position: absolute;
   inset: 0;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 2s ease-in-out; /* Smooth crossfade */
+  transition: opacity 2s ease-in-out;
 }
 
 .kb-slide.active {
   opacity: 1;
-  /* Ken Burns movement happens while active */
   animation: kenBurnsSingle 10s forwards linear;
 }
 
 @keyframes kenBurnsSingle {
-  from { transform: scale(1) translate(0,0); }
+  from { transform: scale(1); }
   to { transform: scale(1.15) translate(1%, 1%); }
 }
-
 /* ============================================================ 
    PARALLAX REFINEMENT 
    ============================================================ */
