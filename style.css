@@ -270,23 +270,32 @@ body.has-banner.home-page { padding-top: 0; }
 .kb-slide {
   position: absolute;
   inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   opacity: 0;
-  /* This controls how long the "crossfade" looks */
-  transition: opacity 2s ease-in-out; 
+  /* Keep the fade smooth */
+  transition: opacity 2s ease-in-out;
+  /* This prevents the "super zoom" by ensuring it starts at normal size */
+  transform: scale(1); 
   z-index: 1;
 }
 
 .kb-slide.active {
   opacity: 1;
   z-index: 2;
-  /* 1. MATCH THE DURATION: Use 8s to match your JS setInterval */
-  /* 2. ADD FORWARDS: This stops the "jump" back to the original size */
-  animation: kenBurnsSingle 8s forwards linear; 
+  /* Use a very small zoom (1.05 = 5%) so it doesn't look cropped */
+  animation: kenBurnsSingle 8s forwards ease-out; 
 }
 
 @keyframes kenBurnsSingle {
-  from { transform: scale(1); }
-  to   { transform: scale(1.1); } /* End slightly zoomed in */
+  from {
+    transform: scale(1);
+  }
+  to {
+    /* 1.05 is much safer than 1.1 or 1.15 */
+    transform: scale(1.05); 
+  }
 }
 /* ============================================================ 
    PARALLAX REFINEMENT 
