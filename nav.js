@@ -12,7 +12,7 @@
     let html = '🎸 Loading next show…';
     if (shows && shows.length > 0) {
       const next = shows[0];
-      html = `🎸 Next show: <strong>${next.day} ${next.monthYear} @ ${next.venue}, ${next.location}</strong>`;
+      html = `Next show: <strong>${next.day} ${next.monthYear} @ ${next.venue}, ${next.location}</strong>`;
     }
 
     // Wrap in banner-inner for ticker animation on mobile
