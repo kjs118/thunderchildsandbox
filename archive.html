@@ -7,45 +7,60 @@
   <meta name="description" content="Watch Thunder Child live performance clips from past shows.">
   <link rel="stylesheet" href="style.css">
   <style>
-    .archive-entry { margin-bottom: 4rem; }
+    .archive-entry {
+      margin-bottom: 4rem;
+    }
     .archive-entry:last-child { margin-bottom: 0; }
 
-    .archive-embed {
+    /* 16:9 horizontal video — full width */
+    .embed-horizontal {
+      position: relative;
       width: 100%;
-      background: var(--charcoal);
+      padding-bottom: 56.25%; /* 16:9 */
+      background: #000;
       border: 1px solid var(--border);
-      line-height: 0;
     }
-    .archive-embed iframe {
+    .embed-horizontal iframe {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: 500px;
+      height: 100%;
       border: none;
-      display: block;
+    }
+
+    /* 9:16 vertical Shorts — centered, max width so it fills height nicely */
+    .embed-vertical {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      padding-bottom: min(177.78%, 75vh); /* 9:16 but capped at 75vh */
+      background: #000;
+      border: 1px solid var(--border);
+    }
+    .embed-vertical iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     .archive-caption {
-      padding: 1.2rem 0;
+      padding: 1rem 0 1.5rem;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      flex-wrap: wrap;
     }
     .archive-caption-date {
       font-family: var(--font-display);
       font-size: 1.6rem;
       letter-spacing: 0.08em;
       color: var(--gold);
-      white-space: nowrap;
     }
     .archive-caption-venue {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--dim);
       font-style: italic;
-    }
-
-    @media (max-width: 600px) {
-      .archive-embed iframe { height: 240px; }
+      margin-top: 0.15rem;
     }
   </style>
 </head>
@@ -90,59 +105,67 @@
   <main>
     <div class="section" style="max-width:860px;">
 
-      <p class="section-subtitle reveal">Past Performances</p>
-      <h2 class="section-title reveal">The <span>Vault</span></h2>
-      <span class="section-line reveal"></span>
+      <p class="section-subtitle">Past Performances</p>
+      <h2 class="section-title">The <span>Vault</span></h2>
+      <span class="section-line"></span>
 
-      <article class="archive-entry reveal">
-        <div class="archive-embed">
-          <iframe src="https://www.youtube.com/embed/ZOvPCTSVaPM"
+      <!-- May 2, 2026 — horizontal -->
+      <article class="archive-entry">
+        <div class="embed-horizontal">
+          <iframe
+            src="https://www.youtube.com/embed/ZOvPCTSVaPM"
             title="Thunder Child — Legends Pub, May 2, 2026"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="archive-caption">
-          <span class="archive-caption-date">May 2, 2026</span>
-          <span class="archive-caption-venue">Legends Pub — Lafayette, LA</span>
+          <div class="archive-caption-date">May 2, 2026</div>
+          <div class="archive-caption-venue">Legends Pub — Lafayette, LA</div>
         </div>
       </article>
 
-      <article class="archive-entry reveal">
-        <div class="archive-embed">
-          <iframe src="https://www.youtube.com/embed/Nn9TwPXHtVw"
+      <!-- February 21, 2026 — Shorts (vertical) -->
+      <article class="archive-entry">
+        <div class="embed-vertical">
+          <iframe
+            src="https://www.youtube.com/embed/Nn9TwPXHtVw"
             title="Thunder Child — Frozen Sun, February 21, 2026"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="archive-caption">
-          <span class="archive-caption-date">February 21, 2026</span>
-          <span class="archive-caption-venue">Frozen Sun — Maurice, LA</span>
+          <div class="archive-caption-date">February 21, 2026</div>
+          <div class="archive-caption-venue">Frozen Sun — Maurice, LA</div>
         </div>
       </article>
 
-      <article class="archive-entry reveal">
-        <div class="archive-embed">
-          <iframe src="https://www.youtube.com/embed/-hg2nxXHioo"
+      <!-- January 17, 2026 — Shorts (vertical) -->
+      <article class="archive-entry">
+        <div class="embed-vertical">
+          <iframe
+            src="https://www.youtube.com/embed/-hg2nxXHioo"
             title="Thunder Child — Gloria's, January 17, 2026"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="archive-caption">
-          <span class="archive-caption-date">January 17, 2026</span>
-          <span class="archive-caption-venue">Gloria's — Lafayette, LA</span>
+          <div class="archive-caption-date">January 17, 2026</div>
+          <div class="archive-caption-venue">Gloria's — Lafayette, LA</div>
         </div>
       </article>
 
-      <article class="archive-entry reveal">
-        <div class="archive-embed">
-          <iframe src="https://www.youtube.com/embed/EGiMKe_sge0"
+      <!-- November 7, 2025 — Shorts (vertical) -->
+      <article class="archive-entry">
+        <div class="embed-vertical">
+          <iframe
+            src="https://www.youtube.com/embed/EGiMKe_sge0"
             title="Thunder Child — Legends Pub, November 7, 2025"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="archive-caption">
-          <span class="archive-caption-date">November 7, 2025</span>
-          <span class="archive-caption-venue">Legends Pub — Lafayette, LA</span>
+          <div class="archive-caption-date">November 7, 2025</div>
+          <div class="archive-caption-venue">Legends Pub — Lafayette, LA</div>
         </div>
       </article>
 
