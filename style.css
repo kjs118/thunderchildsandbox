@@ -273,22 +273,26 @@ body.has-banner.home-page { padding-top: 0; }
   background-size: cover;
   background-position: center;
   opacity: 0;
-  z-index: 1; 
+  z-index: 1;
   transition: opacity 2s ease-in-out;
-  /* ADD THIS LINE: It forces the outgoing slide to stay zoomed while fading */
-  animation: kenBurnsSingle 10s forwards linear; 
+  /* Use the "Exit" version of the animation here */
+  animation: kenBurnsExit 10s forwards linear;
 }
 
 .kb-slide.active {
   opacity: 1;
-  /* This puts the new slide on "top" of the old one */
   z-index: 2;
-  /* 1. We use 10s so the movement doesn't stop before the next photo starts */
-  /* 2. 'forwards' prevents the "snap back" to original size */
-  animation: kenBurnsSingle 10s forwards linear;
+  /* Use the "Enter" version of the animation here */
+  animation: kenBurnsEnter 10s forwards linear;
 }
 
-@keyframes kenBurnsSingle {
+/* Both animations do the EXACT same thing, but the name change forces a reset */
+@keyframes kenBurnsEnter {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+
+@keyframes kenBurnsExit {
   from { transform: scale(1); }
   to   { transform: scale(1.1); }
 }
