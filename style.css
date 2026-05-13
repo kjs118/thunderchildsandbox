@@ -749,8 +749,10 @@ body.has-banner.home-page { padding-top: 0; }
 .divider { height: 1px; background: var(--border); margin: 4rem 0; }
 
 /* Fade-in on scroll */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.visible { opacity: 1; transform: none; }
+/* Reveal: content visible by default; JS adds .js-ready to body to enable animation */
+.reveal { opacity: 1; transform: none; }
+body.js-ready .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+body.js-ready .reveal.visible { opacity: 1; transform: none; }
 
 /* ============================================================
    RESPONSIVE
