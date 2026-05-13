@@ -143,16 +143,22 @@ ul { list-style: none; }
 /* ============================================================
    ANNOUNCEMENT BANNER
    ============================================================ */
+:root { --banner-h: 36px; }
+
 .announcement-bar {
-  position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 990;
+  display: none; /* shown by nav.js */
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
+  height: var(--banner-h);
   background: var(--gold);
   color: var(--black);
   text-align: center;
-  padding: 0.55rem 1rem;
+  padding: 0 3rem;
+  line-height: var(--banner-h);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .announcement-bar a {
   font-weight: 700;
@@ -166,7 +172,13 @@ ul { list-style: none; }
   transition: opacity var(--transition);
 }
 .announcement-bar .dismiss:hover { opacity: 1; }
-body.has-banner { padding-top: calc(var(--nav-h) + 36px); }
+
+/* When banner is visible, push nav down */
+body.has-banner .site-nav { top: var(--banner-h); }
+/* Non-home pages need top padding for nav + banner */
+body.has-banner { padding-top: calc(var(--nav-h) + var(--banner-h)); }
+/* Home page: hero fills viewport, override padding */
+body.has-banner.home-page { padding-top: 0; }
 
 /* ============================================================
    HERO — HOME
@@ -450,13 +462,16 @@ body.has-banner { padding-top: calc(var(--nav-h) + 36px); }
   border: 1px solid var(--border); color: var(--dim); border-radius: 2px;
 }
 .show-flyer {
-  width: 80px; flex-shrink: 0;
+  width: 120px; height: 120px; flex-shrink: 0;
+  object-fit: contain;
+  background: var(--charcoal);
   border: 1px solid var(--border);
+  padding: 6px;
   transition: transform var(--transition);
 }
 .show-card:hover .show-flyer { transform: scale(1.04); }
 .show-flyer-placeholder {
-  width: 80px; height: 80px; flex-shrink: 0;
+  width: 120px; height: 120px; flex-shrink: 0;
   border: 1px dashed var(--border);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-mono); font-size: 0.55rem;
@@ -747,8 +762,8 @@ body.has-banner { padding-top: calc(var(--nav-h) + 36px); }
   .about-hero { grid-template-columns: 1fr; }
   .contact-layout { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
-  .show-card { grid-template-columns: 120px 1fr; }
-  .show-card > .show-flyer, .show-card > .show-flyer-placeholder { display: none; }
+  .show-card { grid-template-columns: 100px 1fr; gap: 1rem; }
+  .show-card > .show-flyer, .show-card > .show-flyer-placeholder { width: 80px; height: 80px; }
   .gallery-masonry { columns: 2; }
 }
 @media (max-width: 600px) {
