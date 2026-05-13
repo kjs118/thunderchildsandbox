@@ -269,15 +269,21 @@ body.has-banner.home-page { padding-top: 0; }
 /* Ken Burns Slide Styles */
 .kb-slide {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 2s ease-in-out;
+  z-index: 1;
 }
 
 .kb-slide.active {
   opacity: 1;
+  z-index: 2; /* Ensures the active slide stays on top of fading ones */
   animation: kenBurnsSingle 10s forwards linear;
 }
 
