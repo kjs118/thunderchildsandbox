@@ -273,10 +273,10 @@ body.has-banner.home-page { padding-top: 0; }
   background-size: cover;
   background-position: center;
   opacity: 0;
-  /* This ensures the slide on the "bottom" stays visible during the crossfade */
   z-index: 1; 
-  /* Smooth 2-second fade out */
   transition: opacity 2s ease-in-out;
+  /* ADD THIS LINE: It forces the outgoing slide to stay zoomed while fading */
+  animation: kenBurnsSingle 10s forwards linear; 
 }
 
 .kb-slide.active {
