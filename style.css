@@ -652,28 +652,26 @@ body.has-banner.home-page { padding-top: 0; }
 .band-members {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 1.5rem;
+  gap: 2rem;
   margin-top: 4rem;
 }
 .member-card {
-  background: var(--charcoal);
-  border: 1px solid var(--border);
-  padding: 1.5rem 1rem;
+  background: transparent;
+  border: none;
+  padding: 0;
   text-align: center;
-  transition: border-color var(--transition);
+  transition: transform var(--transition);
 }
-.member-card:hover { border-color: var(--gold-dk); }
+.member-card:hover { transform: translateY(-4px); }
 .member-photo {
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
-  background: var(--border);
   margin: 0 auto 1rem;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; color: var(--gold);
   overflow: hidden;
-  border: 2px solid var(--border);
-  max-width: 160px;
+  border: none;
+  background: var(--border);
+  display: flex; align-items: center; justify-content: center;
 }
 .member-photo img {
   width: 100%; height: 100%;
@@ -683,15 +681,26 @@ body.has-banner.home-page { padding-top: 0; }
 .member-photo span { font-size: 2.5rem; }
 .member-name {
   font-family: var(--font-display);
-  font-size: 1.1rem; letter-spacing: 0.1em;
+  font-size: 1.2rem; letter-spacing: 0.08em;
+  color: var(--white);
+  margin-bottom: 0.2rem;
 }
-/* Stack to 3 then 2 on smaller screens */
+.member-instrument {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
 @media (max-width: 900px) {
   .band-members { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 500px) {
   .band-members { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Remove offset border from about page photos */
+.home-about-img::before { display: none; }
 
 /* ============================================================
    CONTACT PAGE
