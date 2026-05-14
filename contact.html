@@ -129,8 +129,7 @@
           <p class="section-subtitle">Send a Message</p>
           <h3 class="section-title" style="font-size:2rem;margin-bottom:2rem;">Book or<br><span>Inquire</span></h3>
 
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="form-group">
+<form class="contact-form" action="https://formspree.io/f/mjgldabn" method="POST">            <div class="form-group">
               <label class="form-label" for="name">Your Name</label>
               <input class="form-input" type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
             </div>
@@ -219,14 +218,6 @@
 
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
-  <script>
-    // Simple form demo (wire to your backend/Formspree/Netlify Forms)
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const msg = document.getElementById('success-msg');
-      msg.style.display = 'block';
-      this.querySelectorAll('input, textarea, select, button').forEach(el => el.disabled = true);
-    });
-  </script>
+
 </body>
 </html>
