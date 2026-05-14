@@ -111,9 +111,11 @@
       .hero-sub-br { display: block; }
       .hero-sub { text-align: center; }
     }
-      .photo-band-img { height: 300px; }
+    @media (max-width: 768px) {
+      .photo-band { grid-template-columns: 1fr; }
+      .photo-band-img { height: 320px; }
       .photo-band-content { padding: 2.5rem 1.5rem; border-left: none; border-top: 3px solid var(--gold); }
-      .carousel-slide img { height: 240px; } /* shorter on mobile */
+      .carousel-slide img { height: 240px; }
     }
   </style>
 </head>
@@ -131,7 +133,7 @@
       <li><a href="about.html">About</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="archive.html">Archive</a></li>
-      <li><a href="contact.html" class="cta-link">Book Us</a></li>
+      <li><a href="contact.html" class="cta-link">Contact</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -143,7 +145,7 @@
     <a href="about.html">About</a>
     <a href="gallery.html">Gallery</a>
     <a href="archive.html">Archive</a>
-    <a href="contact.html">Book Us</a>
+    <a href="contact.html">Contact</a>
   </nav>
 
   <!-- HERO with Ken Burns slideshow -->
