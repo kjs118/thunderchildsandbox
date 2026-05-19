@@ -64,22 +64,25 @@
     }
     .show-toggle-icon svg { width: 14px; height: 14px; }
 
-    /* ── Expanded panel ── */
+    /* ── Expanded panel — grid-rows trick for reliable animation ── */
     .show-panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .show-card.open .show-panel { max-height: 600px; }
+    .show-panel > .show-panel-inner {
+      overflow: hidden;
+      min-height: 0; /* required for grid-rows trick */
+    }
+    .show-card.open .show-panel { grid-template-rows: 1fr; }
 
     .show-panel-inner {
       display: grid;
       grid-template-columns: 200px 1fr auto;
       gap: 2.5rem;
       align-items: start;
-      padding: 0 2rem 2rem 2rem;
+      padding: 1.5rem 2rem 2rem;
       border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
     }
 
     .show-panel-flyer img {
@@ -236,7 +239,7 @@
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">106 Merchants Blvd, Lafayette, LA 70508</span>
+                  <span class="show-detail-value">2320 Kaliste Saloom Rd, Lafayette, LA 70508</span>
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Date</span>
@@ -253,7 +256,7 @@
               </div>
               <div class="show-panel-actions">
                 <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook →</a>
-                <a href="https://maps.google.com/?q=106+Merchants+Blvd,+Lafayette,+LA+70508" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
+                <a href="https://maps.google.com/?q=2320+Kaliste+Saloom+Rd+Lafayette+LA" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
               </div>
             </div>
           </div>
@@ -286,7 +289,7 @@
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">104 Republic Ave, Lafayette, LA 70508</span>
+                  <span class="show-detail-value">1921 Kaliste Saloom Rd, Lafayette, LA 70508</span>
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Date</span>
@@ -298,12 +301,12 @@
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Cover</span>
-                  <span class="show-detail-value">$5</span>
+                  <span class="show-detail-value">No cover</span>
                 </div>
               </div>
               <div class="show-panel-actions">
                 <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook →</a>
-                <a href="https://maps.google.com/?q=104+Republic+Ave,+Lafayette,+LA+70508" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
+                <a href="https://maps.google.com/?q=1921+Kaliste+Saloom+Rd+Lafayette+LA" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
               </div>
             </div>
           </div>
@@ -336,7 +339,7 @@
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">202 Sawdust Rd # 118, Spring, TX 77380</span>
+                  <span class="show-detail-value">Houston, Texas</span>
                 </div>
                 <div class="show-detail-row">
                   <span class="show-detail-label">Date</span>
@@ -464,13 +467,18 @@
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
   <script>
-    // Accordion toggle
-    document.querySelectorAll('.show-card:not(.past)').forEach(card => {
-      card.addEventListener('click', function(e) {
-        // Don't collapse if clicking a link inside the panel
-        if (e.target.closest('a')) return;
+    // Stop links inside panels from bubbling up to the card click handler
+    document.querySelectorAll('.show-panel a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
 
-        const isOpen = this.classList.contains('open');
+    // Accordion toggle — only triggered by header row clicks
+    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const card = this.closest('.show-card');
+        const isOpen = card.classList.contains('open');
 
         // Close all others
         document.querySelectorAll('.show-card.open').forEach(c => {
@@ -480,10 +488,18 @@
 
         // Toggle this one
         if (!isOpen) {
-          this.classList.add('open');
-          this.setAttribute('aria-expanded', 'true');
+          card.classList.add('open');
+          card.setAttribute('aria-expanded', 'true');
         }
       });
+    });
+
+    // Make only the header row look clickable
+    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(h => {
+      h.style.cursor = 'pointer';
+    });
+    document.querySelectorAll('.show-card:not(.past)').forEach(c => {
+      c.style.cursor = 'default';
     });
   </script>
 </body>
