@@ -64,17 +64,13 @@
     }
     .show-toggle-icon svg { width: 14px; height: 14px; }
 
-    /* ── Expanded panel — grid-rows trick for reliable animation ── */
+    /* ── Expanded panel ── */
     .show-panel {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: none;
     }
-    .show-panel > .show-panel-inner {
-      overflow: hidden;
-      min-height: 0; /* required for grid-rows trick */
+    .show-card.open .show-panel {
+      display: block;
     }
-    .show-card.open .show-panel { grid-template-rows: 1fr; }
 
     .show-panel-inner {
       display: grid;
@@ -83,6 +79,7 @@
       align-items: start;
       padding: 1.5rem 2rem 2rem;
       border-top: 1px solid var(--border);
+      background: var(--deep);
     }
 
     .show-panel-flyer img {
@@ -467,39 +464,14 @@
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
   <script>
-    // Stop links inside panels from bubbling up to the card click handler
-    document.querySelectorAll('.show-panel a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    });
-
-    // Accordion toggle — only triggered by header row clicks
-    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(header => {
-      header.addEventListener('click', function() {
-        const card = this.closest('.show-card');
+    document.querySelectorAll('.show-card:not(.past)').forEach(card => {
+      card.querySelector('.show-card-header').addEventListener('click', function() {
         const isOpen = card.classList.contains('open');
-
-        // Close all others
-        document.querySelectorAll('.show-card.open').forEach(c => {
-          c.classList.remove('open');
-          c.setAttribute('aria-expanded', 'false');
-        });
-
-        // Toggle this one
-        if (!isOpen) {
-          card.classList.add('open');
-          card.setAttribute('aria-expanded', 'true');
-        }
+        // Close all
+        document.querySelectorAll('.show-card').forEach(c => c.classList.remove('open'));
+        // Open this one if it was closed
+        if (!isOpen) card.classList.add('open');
       });
-    });
-
-    // Make only the header row look clickable
-    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(h => {
-      h.style.cursor = 'pointer';
-    });
-    document.querySelectorAll('.show-card:not(.past)').forEach(c => {
-      c.style.cursor = 'default';
     });
   </script>
 </body>
