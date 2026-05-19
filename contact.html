@@ -129,7 +129,8 @@
           <p class="section-subtitle">Send a Message</p>
           <h3 class="section-title" style="font-size:2rem;margin-bottom:2rem;">Book or<br><span>Inquire</span></h3>
 
-<form class="contact-form" action="https://formspree.io/f/mjgldabn" method="POST">            <div class="form-group">
+          <form class="contact-form" id="contact-form" action="contact-form.php" method="POST">
+            <div class="form-group">
               <label class="form-label" for="name">Your Name</label>
               <input class="form-input" type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
             </div>
@@ -174,6 +175,7 @@
               We'll respond within 48 hours
             </p>
 
+            <div class="error-msg" id="error-msg" style="display:none;background:rgba(180,60,60,0.1);border:1px solid #7a3030;padding:1rem;font-family:var(--font-mono);font-size:0.72rem;color:#c47070;margin-top:1rem;border-radius:2px;"></div>
             <div class="success-msg" id="success-msg">
               ✓ Message sent! We'll be in touch within 48 hours.
             </div>
@@ -218,6 +220,23 @@
 
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
-
+  <script>
+    // Show success or error message based on PHP redirect query param
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get('status');
+      if (status === 'success') {
+        document.getElementById('success-msg').style.display = 'block';
+        // Clean the URL so refreshing doesn't re-show the message
+        history.replaceState(null, '', 'contact.html');
+      } else if (status === 'error') {
+        const errorMsg = document.getElementById('error-msg');
+        const msg = params.get('msg') || 'Something went wrong. Please email us directly.';
+        errorMsg.textContent = msg;
+        errorMsg.style.display = 'block';
+        history.replaceState(null, '', 'contact.html');
+      }
+    })();
+  </script>
 </body>
 </html>
