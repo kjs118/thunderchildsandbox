@@ -856,3 +856,6 @@ body.js-ready .reveal.visible { opacity: 1; transform: none; }
   .footer-inner { grid-template-columns: 1fr; }
   .archive-grid { grid-template-columns: 1fr; }
 }
+
+/* Shows page — cards must always be visible, never affected by reveal */
+.show-card, .show-card * { opacity: 1 !important; transform: none !important; }
