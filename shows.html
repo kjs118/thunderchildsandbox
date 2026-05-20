@@ -189,7 +189,7 @@
 
         <!-- Jul 18 -->
         <div class="show-card">
-          <div class="show-card-header">
+          <div class="show-card-header" onclick="toggleShow(this)">
             <div class="show-date-block">
               <div class="show-day">18</div>
               <div class="show-month-year">Jul 2026</div>
@@ -224,7 +224,7 @@
 
         <!-- Aug 29 -->
         <div class="show-card">
-          <div class="show-card-header">
+          <div class="show-card-header" onclick="toggleShow(this)">
             <div class="show-date-block">
               <div class="show-day">29</div>
               <div class="show-month-year">Aug 2026</div>
@@ -259,7 +259,7 @@
 
         <!-- Nov 13 -->
         <div class="show-card">
-          <div class="show-card-header">
+          <div class="show-card-header" onclick="toggleShow(this)">
             <div class="show-date-block">
               <div class="show-day">13</div>
               <div class="show-month-year">Nov 2026</div>
@@ -375,14 +375,21 @@
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
   <script>
-    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(function(header) {
-      header.addEventListener('click', function() {
-        var card = this.parentElement;
-        var isOpen = card.classList.contains('open');
-        document.querySelectorAll('.show-card').forEach(function(c) { c.classList.remove('open'); });
-        if (!isOpen) { card.classList.add('open'); }
-      });
-    });
+    function toggleShow(header) {
+      var panel = header.nextElementSibling;
+      var chevron = header.querySelector('.show-toggle-icon');
+      var isOpen = panel.style.display === 'block';
+      // Close all panels
+      document.querySelectorAll('.show-panel').forEach(function(p) { p.style.display = 'none'; });
+      document.querySelectorAll('.show-toggle-icon').forEach(function(i) { i.style.transform = ''; i.style.borderColor = ''; i.style.color = ''; });
+      // Open this one if it was closed
+      if (!isOpen) {
+        panel.style.display = 'block';
+        chevron.style.transform = 'rotate(180deg)';
+        chevron.style.borderColor = '#c4738a';
+        chevron.style.color = '#c4738a';
+      }
+    }
   </script>
 </body>
 </html>
