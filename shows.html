@@ -6,164 +6,142 @@
   <title>Thunder Child — Shows</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    .shows-list { display: flex; flex-direction: column; gap: 3px; }
 
-    .shows-list { display: flex; flex-direction: column; gap: 2px; }
-
-    /* ── Show card — collapsed state ── */
     .show-card {
       background: var(--charcoal);
       border: 1px solid var(--border);
       border-left: 3px solid transparent;
-      transition: border-left-color var(--transition), background var(--transition);
+    }
+    .show-card:not(.past):hover { border-left-color: var(--gold-dk); }
+    .show-card.open { border-left-color: var(--gold); background: var(--deep); }
+
+    /* Header row — always visible, clickable */
+    .show-card-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem 2rem;
       cursor: pointer;
       user-select: none;
     }
-    .show-card:hover { border-left-color: var(--gold-dk); }
-    .show-card.open  { border-left-color: var(--gold); background: var(--deep); }
+    .show-card.past .show-card-header { cursor: default; }
 
-    /* ── Card header row (always visible) ── */
-    .show-card-header {
-      display: grid;
-      grid-template-columns: 100px 1fr 36px;
-      align-items: center;
-      gap: 2rem;
-      padding: 1.6rem 2rem;
+    .show-date-block {
+      text-align: center;
+      flex-shrink: 0;
+      width: 70px;
     }
-    .show-date-block { text-align: center; }
     .show-day {
       font-family: var(--font-display);
       font-size: 2.8rem; line-height: 1; color: var(--gold);
     }
     .show-month-year {
-      font-family: var(--font-mono); font-size: 0.6rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--dim); margin-top: 0.2rem;
-    }
-    .show-info-col .show-venue {
-      font-family: var(--font-display);
-      font-size: 1.7rem; letter-spacing: 0.05em;
-    }
-    .show-info-col .show-location {
-      font-size: 0.88rem; color: var(--dim);
-      font-style: italic; margin-top: 0.15rem;
+      font-family: var(--font-mono); font-size: 0.58rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
     }
 
-    /* Chevron toggle icon */
-    .show-toggle-icon {
-      width: 28px; height: 28px;
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--dim); flex-shrink: 0;
-      transition: transform var(--transition), border-color var(--transition), color var(--transition);
+    .show-divider {
+      width: 1px; height: 48px;
+      background: var(--border); flex-shrink: 0;
     }
+
+    .show-info-col { flex: 1; min-width: 0; }
+    .show-venue {
+      font-family: var(--font-display);
+      font-size: 1.8rem; letter-spacing: 0.05em;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .show-location {
+      font-size: 0.88rem; color: var(--dim); font-style: italic;
+    }
+
+    .show-toggle-icon {
+      width: 30px; height: 30px; flex-shrink: 0;
+      border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--dim); margin-left: auto;
+      transition: transform 0.3s ease, border-color 0.3s, color 0.3s;
+    }
+    .show-card.past .show-toggle-icon { visibility: hidden; }
     .show-card.open .show-toggle-icon {
       transform: rotate(180deg);
-      border-color: var(--gold);
-      color: var(--gold);
+      border-color: var(--gold); color: var(--gold);
     }
-    .show-toggle-icon svg { width: 14px; height: 14px; }
 
-    /* ── Expanded panel ── */
-    .show-panel {
-      display: none;
-    }
-    .show-card.open .show-panel {
-      display: block;
-    }
+    /* Panel — hidden by default */
+    .show-panel { display: none; }
+    .show-card.open .show-panel { display: block; }
 
     .show-panel-inner {
-      display: grid;
-      grid-template-columns: 200px 1fr auto;
-      gap: 2.5rem;
-      align-items: start;
-      padding: 1.5rem 2rem 2rem;
       border-top: 1px solid var(--border);
-      background: var(--deep);
+      padding: 2rem;
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
     }
 
+    .show-panel-flyer {
+      flex-shrink: 0; width: 160px;
+    }
     .show-panel-flyer img {
-      width: 100%; max-width: 200px;
-      object-fit: contain;
-      border: 1px solid var(--border);
-      padding: 8px;
+      width: 100%; display: block;
+      border: 1px solid var(--border); padding: 6px;
       background: var(--charcoal);
     }
 
-    .show-panel-details { }
+    .show-panel-details { flex: 1; }
     .show-detail-row {
-      display: flex; gap: 0.75rem;
-      margin-bottom: 0.8rem; align-items: flex-start;
+      display: flex; gap: 1rem; margin-bottom: 0.7rem; align-items: baseline;
     }
     .show-detail-label {
-      font-family: var(--font-mono); font-size: 0.6rem;
+      font-family: var(--font-mono); font-size: 0.58rem;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--gold); white-space: nowrap;
-      padding-top: 0.1rem; min-width: 60px;
+      color: var(--gold); white-space: nowrap; min-width: 55px; flex-shrink: 0;
     }
-    .show-detail-value {
-      font-size: 0.95rem; color: var(--white); line-height: 1.5;
-    }
-    .show-detail-value.dim { color: var(--dim); }
+    .show-detail-value { font-size: 0.95rem; color: var(--white); }
 
     .show-panel-actions {
-      display: flex; flex-direction: column; gap: 0.75rem;
-      align-items: flex-end; padding-top: 0.25rem;
+      flex-shrink: 0;
+      display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start;
     }
-
     .btn-rsvp {
       display: inline-block;
-      font-family: var(--font-mono); font-size: 0.7rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
       letter-spacing: 0.14em; text-transform: uppercase;
-      padding: 0.8rem 1.6rem;
+      padding: 0.75rem 1.5rem;
       background: var(--gold); color: var(--black);
       border: 1px solid var(--gold); border-radius: 2px;
-      cursor: pointer; font-weight: 700; white-space: nowrap;
-      transition: all var(--transition);
+      font-weight: 700; white-space: nowrap;
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-rsvp:hover {
-      background: var(--gold-lt); border-color: var(--gold-lt);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(196,115,138,0.3);
-    }
+    .btn-rsvp:hover { background: var(--gold-lt); transform: translateY(-2px); }
     .btn-directions {
-      font-family: var(--font-mono); font-size: 0.65rem;
+      font-family: var(--font-mono); font-size: 0.62rem;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--dim); border-bottom: 1px solid var(--border);
-      padding-bottom: 2px; white-space: nowrap;
-      transition: color var(--transition), border-color var(--transition);
+      color: var(--dim); text-decoration: underline;
+      text-underline-offset: 3px;
     }
-    .btn-directions:hover { color: var(--gold); border-color: var(--gold); }
+    .btn-directions:hover { color: var(--gold); }
 
-    /* Past shows */
+    /* Past */
     .past-shows-divider {
       display: flex; align-items: center; gap: 1.5rem; margin: 3rem 0 1.5rem;
     }
     .past-shows-divider span {
       font-family: var(--font-mono); font-size: 0.65rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--dim); white-space: nowrap;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); white-space: nowrap;
     }
     .past-shows-divider::before, .past-shows-divider::after {
       content: ''; flex: 1; height: 1px; background: var(--border);
     }
-    .show-card.past { opacity: 0.5; cursor: default; }
-    .show-card.past:hover { border-left-color: transparent; }
-    .show-card.past .show-toggle-icon { display: none; }
+    .show-card.past { opacity: 0.5; }
 
-    /* Mobile */
-    @media (max-width: 768px) {
-      .show-card-header {
-        grid-template-columns: 80px 1fr 32px;
-        gap: 1rem; padding: 1.2rem 1.2rem;
-      }
-      .show-day { font-size: 2.2rem; }
-      .show-panel-inner {
-        grid-template-columns: 1fr;
-        gap: 1.5rem; padding: 1.2rem;
-      }
-      .show-panel-flyer img { max-width: 140px; }
-      .show-panel-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    @media (max-width: 600px) {
+      .show-card-header { gap: 1rem; padding: 1.2rem; }
+      .show-venue { font-size: 1.3rem; }
+      .show-panel-inner { flex-direction: column; gap: 1.5rem; }
+      .show-panel-flyer { width: 120px; }
     }
   </style>
 </head>
@@ -203,25 +181,26 @@
   <main>
     <div class="section">
 
-      <p class="section-subtitle reveal">On the Horizon</p>
-      <h2 class="section-title reveal">Upcoming <span>Shows</span></h2>
-      <span class="section-line reveal"></span>
+      <p class="section-subtitle">On the Horizon</p>
+      <h2 class="section-title">Upcoming <span>Shows</span></h2>
+      <span class="section-line"></span>
 
       <div class="shows-list">
 
         <!-- Jul 18 -->
-        <div class="show-card reveal" role="button" aria-expanded="false">
+        <div class="show-card">
           <div class="show-card-header">
             <div class="show-date-block">
               <div class="show-day">18</div>
               <div class="show-month-year">Jul 2026</div>
             </div>
+            <div class="show-divider"></div>
             <div class="show-info-col">
               <div class="show-venue">Gloria's</div>
               <div class="show-location">Lafayette, Louisiana</div>
             </div>
-            <div class="show-toggle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="show-toggle-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
           <div class="show-panel">
@@ -230,29 +209,13 @@
                 <img src="https://www.thunderchildband.com/images/glorias.jpg" alt="Gloria's">
               </div>
               <div class="show-panel-details">
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Venue</span>
-                  <span class="show-detail-value">Gloria's</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">2320 Kaliste Saloom Rd, Lafayette, LA 70508</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Date</span>
-                  <span class="show-detail-value">Saturday, July 18, 2026</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Time</span>
-                  <span class="show-detail-value">9:00 PM</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Cover</span>
-                  <span class="show-detail-value">No cover</span>
-                </div>
+                <div class="show-detail-row"><span class="show-detail-label">Address</span><span class="show-detail-value">2320 Kaliste Saloom Rd, Lafayette, LA</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Date</span><span class="show-detail-value">Saturday, July 18, 2026</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Time</span><span class="show-detail-value">9:00 PM</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Cover</span><span class="show-detail-value">No cover</span></div>
               </div>
               <div class="show-panel-actions">
-                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook →</a>
+                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook</a>
                 <a href="https://maps.google.com/?q=2320+Kaliste+Saloom+Rd+Lafayette+LA" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
               </div>
             </div>
@@ -260,18 +223,19 @@
         </div>
 
         <!-- Aug 29 -->
-        <div class="show-card reveal" role="button" aria-expanded="false">
+        <div class="show-card">
           <div class="show-card-header">
             <div class="show-date-block">
               <div class="show-day">29</div>
               <div class="show-month-year">Aug 2026</div>
             </div>
+            <div class="show-divider"></div>
             <div class="show-info-col">
               <div class="show-venue">Legends Pub</div>
               <div class="show-location">Lafayette, Louisiana</div>
             </div>
-            <div class="show-toggle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="show-toggle-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
           <div class="show-panel">
@@ -280,29 +244,13 @@
                 <img src="https://www.thunderchildband.com/images/legendspub.png" alt="Legends Pub">
               </div>
               <div class="show-panel-details">
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Venue</span>
-                  <span class="show-detail-value">Legends Pub</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">1921 Kaliste Saloom Rd, Lafayette, LA 70508</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Date</span>
-                  <span class="show-detail-value">Saturday, August 29, 2026</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Time</span>
-                  <span class="show-detail-value">9:00 PM</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Cover</span>
-                  <span class="show-detail-value">No cover</span>
-                </div>
+                <div class="show-detail-row"><span class="show-detail-label">Address</span><span class="show-detail-value">1921 Kaliste Saloom Rd, Lafayette, LA</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Date</span><span class="show-detail-value">Saturday, August 29, 2026</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Time</span><span class="show-detail-value">9:00 PM</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Cover</span><span class="show-detail-value">No cover</span></div>
               </div>
               <div class="show-panel-actions">
-                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook →</a>
+                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook</a>
                 <a href="https://maps.google.com/?q=1921+Kaliste+Saloom+Rd+Lafayette+LA" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
               </div>
             </div>
@@ -310,120 +258,83 @@
         </div>
 
         <!-- Nov 13 -->
-        <div class="show-card reveal" role="button" aria-expanded="false">
+        <div class="show-card">
           <div class="show-card-header">
             <div class="show-date-block">
               <div class="show-day">13</div>
               <div class="show-month-year">Nov 2026</div>
             </div>
+            <div class="show-divider"></div>
             <div class="show-info-col">
               <div class="show-venue">19th Hole Grill &amp; Bar</div>
               <div class="show-location">Houston, Texas</div>
             </div>
-            <div class="show-toggle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            <div class="show-toggle-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </div>
           </div>
           <div class="show-panel">
             <div class="show-panel-inner">
               <div class="show-panel-flyer">
-                <img src="https://www.thunderchildband.com/images/19thhole.png" alt="19th Hole Grill & Bar">
+                <img src="https://www.thunderchildband.com/images/19thhole.png" alt="19th Hole">
               </div>
               <div class="show-panel-details">
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Venue</span>
-                  <span class="show-detail-value">19th Hole Grill &amp; Bar</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Address</span>
-                  <span class="show-detail-value">Houston, Texas</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Date</span>
-                  <span class="show-detail-value">Friday, November 13, 2026</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Time</span>
-                  <span class="show-detail-value">TBA</span>
-                </div>
-                <div class="show-detail-row">
-                  <span class="show-detail-label">Cover</span>
-                  <span class="show-detail-value">TBA</span>
-                </div>
+                <div class="show-detail-row"><span class="show-detail-label">Address</span><span class="show-detail-value">Houston, Texas</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Date</span><span class="show-detail-value">Friday, November 13, 2026</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Time</span><span class="show-detail-value">TBA</span></div>
+                <div class="show-detail-row"><span class="show-detail-label">Cover</span><span class="show-detail-value">TBA</span></div>
               </div>
               <div class="show-panel-actions">
-                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook →</a>
+                <a href="#" class="btn-rsvp" target="_blank" rel="noopener">RSVP on Facebook</a>
                 <a href="https://maps.google.com/?q=19th+Hole+Grill+Bar+Houston+TX" class="btn-directions" target="_blank" rel="noopener">Get Directions →</a>
               </div>
             </div>
           </div>
         </div>
 
-      </div><!-- /upcoming shows-list -->
+      </div>
 
-      <div class="past-shows-divider reveal"><span>Past Shows</span></div>
+      <div class="past-shows-divider"><span>Past Shows</span></div>
 
       <div class="shows-list">
-        <div class="show-card past reveal">
+        <div class="show-card past">
           <div class="show-card-header">
-            <div class="show-date-block">
-              <div class="show-day">02</div>
-              <div class="show-month-year">May 2026</div>
-            </div>
-            <div class="show-info-col">
-              <div class="show-venue">Legends Pub</div>
-              <div class="show-location">Lafayette, Louisiana</div>
-            </div>
+            <div class="show-date-block"><div class="show-day">02</div><div class="show-month-year">May 2026</div></div>
+            <div class="show-divider"></div>
+            <div class="show-info-col"><div class="show-venue">Legends Pub</div><div class="show-location">Lafayette, Louisiana</div></div>
             <div class="show-toggle-icon"></div>
           </div>
         </div>
-        <div class="show-card past reveal">
+        <div class="show-card past">
           <div class="show-card-header">
-            <div class="show-date-block">
-              <div class="show-day">21</div>
-              <div class="show-month-year">Feb 2026</div>
-            </div>
-            <div class="show-info-col">
-              <div class="show-venue">Frozen Sun</div>
-              <div class="show-location">Maurice, Louisiana</div>
-            </div>
+            <div class="show-date-block"><div class="show-day">21</div><div class="show-month-year">Feb 2026</div></div>
+            <div class="show-divider"></div>
+            <div class="show-info-col"><div class="show-venue">Frozen Sun</div><div class="show-location">Maurice, Louisiana</div></div>
             <div class="show-toggle-icon"></div>
           </div>
         </div>
-        <div class="show-card past reveal">
+        <div class="show-card past">
           <div class="show-card-header">
-            <div class="show-date-block">
-              <div class="show-day">17</div>
-              <div class="show-month-year">Jan 2026</div>
-            </div>
-            <div class="show-info-col">
-              <div class="show-venue">Gloria's</div>
-              <div class="show-location">Lafayette, Louisiana</div>
-            </div>
+            <div class="show-date-block"><div class="show-day">17</div><div class="show-month-year">Jan 2026</div></div>
+            <div class="show-divider"></div>
+            <div class="show-info-col"><div class="show-venue">Gloria's</div><div class="show-location">Lafayette, Louisiana</div></div>
             <div class="show-toggle-icon"></div>
           </div>
         </div>
-        <div class="show-card past reveal">
+        <div class="show-card past">
           <div class="show-card-header">
-            <div class="show-date-block">
-              <div class="show-day">07</div>
-              <div class="show-month-year">Nov 2025</div>
-            </div>
-            <div class="show-info-col">
-              <div class="show-venue">Legends Pub</div>
-              <div class="show-location">Lafayette, Louisiana</div>
-            </div>
+            <div class="show-date-block"><div class="show-day">07</div><div class="show-month-year">Nov 2025</div></div>
+            <div class="show-divider"></div>
+            <div class="show-info-col"><div class="show-venue">Legends Pub</div><div class="show-location">Lafayette, Louisiana</div></div>
             <div class="show-toggle-icon"></div>
           </div>
         </div>
       </div>
 
-      <div class="reveal" style="margin-top:5rem;text-align:center;padding:4rem 2rem;background:var(--charcoal);border:1px solid var(--border);">
+      <div style="margin-top:5rem;text-align:center;padding:4rem 2rem;background:var(--charcoal);border:1px solid var(--border);">
         <p class="section-subtitle">Private Events &amp; Bookings</p>
         <h2 class="section-title" style="margin-bottom:1rem;">Want Thunder Child <span>at your event?</span></h2>
-        <p style="color:var(--dim);max-width:500px;margin:0 auto 2rem;font-size:1.05rem;">
-          We play private parties, corporate events, weddings, and festivals.
-        </p>
+        <p style="color:var(--dim);max-width:500px;margin:0 auto 2rem;font-size:1.05rem;">We play private parties, corporate events, weddings, and festivals.</p>
         <a href="contact.html" class="btn btn-gold">Get in Touch</a>
       </div>
 
@@ -464,13 +375,12 @@
   <script src="shows-data.js"></script>
   <script src="nav.js"></script>
   <script>
-    document.querySelectorAll('.show-card:not(.past)').forEach(card => {
-      card.querySelector('.show-card-header').addEventListener('click', function() {
-        const isOpen = card.classList.contains('open');
-        // Close all
-        document.querySelectorAll('.show-card').forEach(c => c.classList.remove('open'));
-        // Open this one if it was closed
-        if (!isOpen) card.classList.add('open');
+    document.querySelectorAll('.show-card:not(.past) .show-card-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var card = this.parentElement;
+        var isOpen = card.classList.contains('open');
+        document.querySelectorAll('.show-card').forEach(function(c) { c.classList.remove('open'); });
+        if (!isOpen) { card.classList.add('open'); }
       });
     });
   </script>
